@@ -8,7 +8,9 @@ function App() {
   return (
     <div className="App">
       <GlobalProvider>
-        <NavBar />
+        <div style={{zIndex: 9, position: "relative"}}>
+          <NavBar />
+        </div>
         <MainContent />
       </GlobalProvider>
     </div>
