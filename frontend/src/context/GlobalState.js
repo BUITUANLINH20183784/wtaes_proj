@@ -4,7 +4,7 @@ import axios from "axios";
 
 // Initial state
 const initialState = {
-  post: [],
+  posts: [],
   error: null,
 };
 
@@ -16,7 +16,7 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Actions
-  var getPosts = async () => {
+  const getPosts = async () => {
     try {
       const res = await axios.get("/api/posts");
       dispatch({
@@ -31,7 +31,7 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  var addPost = async (post) => {
+  const addPost = async (post) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  var deletePost = async (id) => {
+  const deletePost = async (id) => {
     try {
       await axios.delete(`/api/posts/${id}`);
       dispatch({
@@ -69,7 +69,7 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        post: state.post,
+        posts: state.posts,
         error: state.error,
         getPosts,
         addPost,

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		flex: "3",
 		maxWidth: "100ch",
 		// marginRight: "2rem"
-		marginRight: theme.spacing(2),
+		marginRight: theme.spacing(10),
 	},
 	topicList: {
 		flex: "1",
