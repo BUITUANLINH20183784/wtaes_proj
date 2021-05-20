@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getPosts, addPost, deletePost } = require("../controllers/posts");
+const { getPosts, addPost, deletePost, updatePost } = require("../controllers/posts");
 
 router
 	.route("/")
@@ -9,6 +9,7 @@ router
 
 router
 	.route("/:id")
-	.delete(deletePost);
+	.delete(deletePost)
+	.put(updatePost);
 
 module.exports = router;

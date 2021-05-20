@@ -72,3 +72,29 @@ exports.deletePost = async (req, res, next) => {
 		});
 	}
 }
+
+// @desc		Update A Post
+// @route		PUT /api/posts/:id
+// @access	Public
+exports.updatePost = async (req, res, next) => {
+  try {
+		const post = await Post.findById(req.params.id);
+		if (!post) {
+			return res.status(404).json({
+				succes: false,
+				error: "No post found",
+			});
+		}
+		await post.updateOne(req.body);
+		return res.status(204).json({
+			success: true,
+			data: {},
+		});
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			success: false,
+			error: "Server Error"
+		});
+	}
+}
