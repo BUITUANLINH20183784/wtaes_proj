@@ -1,5 +1,5 @@
 import './App.css';
-import { MainContent } from './components/MainContent';
+import { MainContent } from './components/MainContent/';
 // import NavBar from './components/NavBar';
 import { MenuBar } from "./components/MenuBar/";
 // import "./components/MenuBar"
@@ -11,6 +11,7 @@ function App() {
     <div className="App">
       <GlobalProvider>
         <MenuBar />
+        <MainContent />
       </GlobalProvider>
     </div>
   );
