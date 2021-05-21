@@ -1,3 +1,14 @@
+.menubar-wrapper {
+  flex: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 80;
+  margin-top: 0;
+  height: 48px;
+}
+
 .menubar {
   width: 100%;
   height: 3em;
@@ -6,19 +17,12 @@
   align-items: center;
   flex-direction: row;
   padding: 0 20px;
-}
-/* 
-.Y4MkVr6trrdypfZVUkpIA, ._2vkeRJojnV7cb9pMlPHy7d {
-  -ms-flex-align: center;
-  align-items: center;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  background-color: var(--newCommunityTheme-body);
-  border-bottom: 1px solid var(--newCommunityTheme-line);
   box-sizing: border-box;
-  -ms-flex-direction: row;
+}
+
+.left-group {
+  align-items: center;
+  display: inline-flex;
   flex-direction: row;
-  -ms-flex-positive: 1;
   flex-grow: 1;
-  padding: 0 20px;
-} */
+}

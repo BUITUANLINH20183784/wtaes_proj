@@ -13,6 +13,7 @@
   box-sizing: border-box;
   height: 36px;
   position: relative;
+  flex-grow: 1;
 }
 
 .search-icon {

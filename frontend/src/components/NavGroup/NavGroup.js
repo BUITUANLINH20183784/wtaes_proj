@@ -3,7 +3,7 @@ import "./NavGroup.css";
 
 export default () => {
   return (
-    <div className="wrapper">
+    <div className="nav-wrapper">
       <div className="nav-group">
         <div className="buttons">
           <a
