@@ -86,13 +86,21 @@ export default () => {
               <div>
                 <p>
                   Abortions banned after 6 weeks with extremely rare exceptions.
-                  We're looking at lawsuits and ladies, nothing about the men here, except they can sue us
-                  for this as well; I guess telling us what to do with our
-                  bodies isn't enough! Texas is even pushing for bills that go
-                  as far as to give a woman the death penalty for an illegal
-                  abortion, but this has not passed
+                  We're looking at lawsuits and ladies, nothing about the men
+                  here, except they can sue us for this as well; I guess telling
+                  us what to do with our bodies isn't enough! Texas is even
+                  pushing for bills that go as far as to give a woman the death
+                  penalty for an illegal abortion, but this has not passed
                 </p>
               </div>
+            </div>
+          </div>
+          <div className={styles.contentAction}>
+            <div>
+              <a href="/r/NintendoSwitch/comments/nhr2pe/what_games_have_really_long_gameplay_value/">
+                <i></i>
+                <span>4.4k comments</span>
+              </a>
             </div>
           </div>
         </div>
