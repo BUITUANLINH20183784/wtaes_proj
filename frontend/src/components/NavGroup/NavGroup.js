@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./NavGroup.css";
 
 export default () => {
@@ -6,22 +7,18 @@ export default () => {
     <div className="nav-wrapper">
       <div className="nav-group">
         <div className="buttons">
-          <a
-            role="button"
-            tabIndex="0"
-            href="https://www.reddit.com/login/?dest=https%3A%2F%2Fwww.reddit.com%2F"
+          <Link
+            to="/login"
             className="button-login button"
           >
             Log In
-          </a>
-          <a
-            role="button"
-            tabIndex="0"
-            href="https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2F"
+          </Link>
+          <Link
+            to="/signup"
             className="button-signup button"
           >
             Sign Up
-          </a>
+          </Link>
         </div>
         <div
           id="email-verification-tooltip-id"
