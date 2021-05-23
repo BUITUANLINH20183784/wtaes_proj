@@ -13,6 +13,12 @@
 .svg2 {
   height: 18px;
   width: auto;
-  display: block;
+  display: none;
   margin-right: 20px;
+}
+
+@media (min-width: 1070px) {
+  .svg2 {
+    display: block;
+  }
 }

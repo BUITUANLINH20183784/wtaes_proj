@@ -1,0 +1,124 @@
+.list {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cardContainer {
+  margin-bottom: 16px;
+  width: 312px;
+  background-color: rgb(255 255 255);
+  color: rgb(26 26 27);
+  fill: rgb(26 26 27);
+  border: 1px solid rgb(204 204 204);
+  border-radius: 4px;
+  overflow: visible;
+  word-wrap: break-word;
+}
+
+.title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  line-height: 12px;
+  text-transform: uppercase;
+  background-color: rgb(255 255 255);
+  border-radius: 3px 3px 0 0;
+  color: rgb(26 26 27);
+  display: flex;
+  fill: rgb(26 26 27);
+  padding: 0 12px 12px;
+}
+
+.titleText {
+  padding: 12px 0 0;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 700;
+  text-transform: none;
+  margin: 0;
+}
+
+.communityListContainer {
+  padding: 12px;
+}
+
+.commmunityContainer {
+  display: flex;
+  padding: 12px 0 4px;
+  align-items: center;
+}
+
+.communityIconContainer {
+  flex: 0 0;
+  height: 32px;
+  width: 32px;
+  margin-right: 8px;
+}
+
+.communityIcon {
+  height: 32px;
+  width: 32px;
+  border-radius: 100%;
+}
+
+.communityInforContainer {
+  flex: 1 1 100%;
+  width: 100%;
+  position: relative;
+}
+
+.communityInforContainer > a {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 144px;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.communityInforContainer p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+}
+
+.joinButtonContainer {
+  flex: 1 1 100%;
+}
+
+.joinButton {
+  width: 100%;
+  
+  position: relative;
+  background-color: rgb(0 121 211);
+  border: none;
+  color: rgb(255 255 255);
+  fill: rgb(255 255 255);
+  
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 17px;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 16px;
+  
+  align-items: center;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  justify-content: center;
+  text-align: center;
+}
+
+.joinButton:hover {
+  cursor: pointer;
+  opacity: .9;
+}

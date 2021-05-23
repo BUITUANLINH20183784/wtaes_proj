@@ -12,9 +12,15 @@
 }
 
 .buttons {
-  display: flex;
+  display: none;
   align-items: center;
   flex-direction: row;
+}
+
+@media (min-width: 616px) {
+  .buttons {
+    display: flex;
+  }
 }
 
 .button {
