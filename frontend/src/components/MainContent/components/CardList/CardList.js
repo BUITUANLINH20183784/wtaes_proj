@@ -11,6 +11,8 @@ export default ({ context }) => {
         <UserCard />
       ) : context === "community" ? (
         <CommunityCard />
+      ) : context === "post" ? (
+        <CommunityCard />
       ) : null}
     </div>
   );
@@ -121,6 +123,14 @@ const UserCard = () => {
 const CommunityCard = () => {
   const Infor = () => (
     <div className={styles.communityListContainer}>
+      <div className={styles.communityMain}>
+        <img className={styles.communityMainIcon} src="https://styles.redditmedia.com/t5_2s5or/styles/communityIcon_zh7j5dqogdp21.png?width=256&s=4d90a0f5874e08839124126de46125c57762c242"></img>
+        <div className={styles.communityName}>
+          <Link className={styles.communityLink}>
+            <span>r/Bear</span>
+          </Link>
+        </div>
+      </div>
       <div className={styles.communityDesc}>Interesting technology news</div>
       <div className={styles.communityStatistics}>
         <div className={styles.totalMember}>

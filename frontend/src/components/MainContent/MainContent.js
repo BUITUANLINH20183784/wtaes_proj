@@ -1,5 +1,6 @@
 import React from "react";
 import { CardList } from "./components/CardList/";
+import { Post } from "./components/Post/";
 import { PostList } from "./components/PostList/";
 import styles from "./MainContent.module.css";
 
@@ -10,7 +11,10 @@ export default ({ context }) => {
         <div className={styles.zIndex}>
           <div className={styles.wrapper}>
             <div className={styles.postList}>
-              <PostList />
+              {
+                context === "post" ? <Post /> :
+                <PostList context={context}/>
+              }
             </div>
             <div className={styles.communities}>
               <CardList context={context}/>

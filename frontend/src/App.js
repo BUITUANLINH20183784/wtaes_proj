@@ -20,16 +20,20 @@ function App() {
             </Route>
             <Route path="/">
               <MenuBar />
-              <Route path="/" exact>
-                <MainContent context="home"/>
-              </Route>
-              <Route path="/u/:id">
-                <MainContent context="user"/>
-              </Route>
-              <Route path="/r/:id">
-                <MainContent context="community"/>
-              </Route>
-
+              <Switch>
+                <Route path="/u/:id">
+                  <MainContent context="user"/>
+                </Route>
+                <Route path="/r/:id">
+                  <MainContent context="community"/>
+                </Route>
+                <Route path="/p/:id">
+                  <MainContent context="post"/>
+                </Route>
+                <Route path="/">
+                  <MainContent context="home"/>
+                </Route>
+              </Switch>
             </Route>
           </Switch>
         </GlobalProvider>
