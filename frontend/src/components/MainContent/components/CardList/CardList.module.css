@@ -220,3 +220,70 @@
 .themeButton:hover {
   opacity: 0.8;
 }
+
+.communityDesc {
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  word-wrap: break-word;
+  margin-bottom: 8px;
+}
+
+.communityStatistics {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.totalMember {
+  padding-right: 4px;
+  flex: auto;
+}
+
+.statisticsNumber {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.statisticsText {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  display: inline-block;
+  word-break: break-word;
+}
+
+.onlineMembers {
+  padding-left: 16px;
+  padding-right: 4px;
+  flex: auto;
+}
+
+.statisticsPad {
+  flex: auto;
+}
+
+.separator {
+  background-color: rgb(237 239 241);
+  border: none;
+  height: 1px;
+  margin: 16px 0;
+}
+
+.createdDate {
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.createdIcon {
+  cursor: default;
+  height: 16px;
+  margin-right: 8px;
+  width: 16px;
+}

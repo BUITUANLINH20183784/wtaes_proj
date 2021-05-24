@@ -26,6 +26,9 @@ function App() {
               <Route path="/u/:id">
                 <MainContent context="user"/>
               </Route>
+              <Route path="/r/:id">
+                <MainContent context="community"/>
+              </Route>
 
             </Route>
           </Switch>

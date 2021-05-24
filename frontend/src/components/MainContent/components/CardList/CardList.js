@@ -9,20 +9,14 @@ export default ({ context }) => {
         <TrendingCard />
       ) : context === "user" ? (
         <UserCard />
-      ) : (
-        ""
-      )}
+      ) : context === "community" ? (
+        <CommunityCard />
+      ) : null}
     </div>
   );
 };
 
 const TrendingCard = () => {
-  const Title = () => (
-    <div className={styles.title}>
-      <h2 className={styles.titleText}>Trending Communities</h2>
-    </div>
-  );
-
   const CommunityList = () => (
     <div className={styles.communityListContainer}>
       <Community />
@@ -71,7 +65,7 @@ const TrendingCard = () => {
 
   return (
     <div className={styles.cardContainer}>
-      <Title />
+      <Title text="Trending Communities"/>
       <CommunityList />
     </div>
   );
@@ -124,8 +118,46 @@ const UserCard = () => {
   );
 };
 
+const CommunityCard = () => {
+  const Infor = () => (
+    <div className={styles.communityListContainer}>
+      <div className={styles.communityDesc}>Interesting technology news</div>
+      <div className={styles.communityStatistics}>
+        <div className={styles.totalMember}>
+          <div className={styles.statisticsNumber}>298k</div>
+          <p className={styles.statisticsText}>Members</p>
+        </div>
+        <div className={styles.onlineMembers}>
+          <div className={styles.statisticsNumber}>888</div>
+          <p className={styles.statisticsText}>Online</p>
+        </div>
+        <div className={styles.statisticsPad}></div>
+      </div>
+      <hr className={styles.separator}/>
+      <div className={styles.createdDate}>
+        <svg className={styles.createdIcon} viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg"><g><g><path d="M37.5,22.5V20h-35v15c0,1.4,1.1,2.5,2.5,2.5h30c1.4,0,2.5-1.1,2.5-2.5v0H6.2C5.6,35,5,34.5,5,33.8l0,0c0-0.7,0.6-1.2,1.2-1.2h31.3V30H6.2C5.6,30,5,29.5,5,28.8v0c0-0.7,0.6-1.2,1.2-1.2h31.3V25H6.2C5.6,25,5,24.5,5,23.8v0c0-0.7,0.6-1.2,1.2-1.2H37.5z"></path><path d="M22.5,6c0,1.4-1.1,2.5-2.5,2.5S17.5,7.4,17.5,6S20,0,20,0S22.5,4.6,22.5,6z"></path><path d="M20,15L20,15c-0.7,0-1.3-0.6-1.3-1.2v-2.5c0-0.7,0.6-1.2,1.2-1.2h0c0.7,0,1.2,0.6,1.2,1.2v2.5C21.2,14.5,20.7,15,20,15z"></path><path d="M22.8,11.3v2.3c0,1.4-1,2.7-2.5,2.9c-1.6,0.2-3-1.1-3-2.7v-5c0,0,0-0.1,0-0.1l-0.8-0.4c-0.9-0.4-2-0.3-2.7,0.4L2.5,18.5h35L22.8,11.3z"></path></g></g></svg>
+        Created May 27, 2008
+      </div>
+      <ThemeButton text="Create Post" />
+    </div>
+  )
+
+  return (
+    <div className={styles.cardContainer}>
+      <Title text="About Community"/>
+      <Infor />
+    </div>
+  )
+}
+
 const ThemeButton = ({ text }) => (
   <div className={styles.themeButtonContainer}>
     <Link className={styles.themeButton}>{text}</Link>
   </div>
 )
+
+const Title = ({ text }) => (
+  <div className={styles.title}>
+    <h2 className={styles.titleText}>{ text }</h2>
+  </div>
+);
