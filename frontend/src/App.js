@@ -30,6 +30,9 @@ function App() {
                 <Route path="/p/:id">
                   <MainContent context="post"/>
                 </Route>
+                <Route path="/submit">
+                  <MainContent context="submit"/>
+                </Route>
                 <Route path="/">
                   <MainContent context="home"/>
                 </Route>

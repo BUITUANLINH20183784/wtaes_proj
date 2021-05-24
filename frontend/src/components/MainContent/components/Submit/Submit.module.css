@@ -1,0 +1,140 @@
+.createAreaContainer {
+  background-color: rgb(255 255 255);
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.chooseCommunityArea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8px; 
+}
+
+.chooseCommunityContainer {
+  position: relative;
+  box-sizing: border-box;
+  min-width: 300px;
+  height: 40px;
+  border-radius: 4px;
+  transition: box-shadow .2s ease;
+  align-items: center;
+  padding: 0 8px;
+  display: flex;
+  background-color: white;
+}
+
+.chooseCommunityIcon {
+  font-size: 13px;
+  line-height: 14px;
+  margin: 0;
+  height: 22px;
+  width: 22px;
+  border-radius: 100%;
+  vertical-align: middle;
+}
+
+.chooseCommunityInput {
+  flex: 1;
+  padding-left: 8px;
+  color: rgb(28 28 28);
+  caret-color: rgb(0 121 211);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  width: 100%;
+  vertical-align: middle;
+  border: none;
+}
+
+.chooseCommunityDrop {
+  fill: rgb(135 138 140);
+  cursor: pointer;
+  margin: 0;
+  height: 22px;
+  width: 22px;
+}
+
+.createArea {
+  padding: 16px;
+}
+
+.createTitle {
+  margin-bottom: 8px;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  height: 39px;
+  color: rgb(28 28 28);
+  caret-color: rgb(0 121 211);
+  padding: 8px 68px 8px 16px;
+  border: 1px solid rgb(237 239 241);
+  background-color: transparent;
+
+  resize: none;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  outline: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  font-family: inherit;
+}
+
+.createContent {
+  outline: none;
+  user-select: text;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  color: rgb(28 28 28);
+  min-height: 122px;
+  word-break: break-word;
+  background-color: rgb(255 255 255);
+  font-family: "Noto Sans",Arial,sans-serif;
+  overflow: hidden;
+  padding: 8px 16px;
+  resize: vertical;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  border: 1px solid rgb(237 239 241);
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+.themeButton {
+  position: relative;
+  background-color: rgb(52 152 221);
+  border: none;
+  color: rgb(255 255 255);
+  fill: rgb(255 255 255);
+
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 17px;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 16px;
+
+  align-items: center;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: auto;
+}
+
+.themeButton:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

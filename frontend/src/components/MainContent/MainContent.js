@@ -2,6 +2,7 @@ import React from "react";
 import { CardList } from "./components/CardList/";
 import { Post } from "./components/Post/";
 import { PostList } from "./components/PostList/";
+import { Submit } from "./components/Submit/";
 import styles from "./MainContent.module.css";
 
 export default ({ context }) => {
@@ -13,6 +14,7 @@ export default ({ context }) => {
             <div className={styles.postList}>
               {
                 context === "post" ? <Post /> :
+                context === "submit" ? <Submit /> :
                 <PostList context={context}/>
               }
             </div>
