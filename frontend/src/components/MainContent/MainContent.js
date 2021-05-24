@@ -3,7 +3,7 @@ import { CardList } from "./components/CardList/";
 import { PostList } from "./components/PostList/";
 import styles from "./MainContent.module.css";
 
-export default () => {
+export default ({ context }) => {
   return (
     <div className={styles.paddingTop}>
       <div className={styles.display}>
@@ -13,7 +13,7 @@ export default () => {
               <PostList />
             </div>
             <div className={styles.communities}>
-              <CardList />
+              <CardList context={context}/>
             </div>
           </div>
         </div>
