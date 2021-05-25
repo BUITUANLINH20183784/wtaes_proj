@@ -1,0 +1,304 @@
+.container {
+  width: 100%;
+  height: calc(100vh - 48px);
+  transition: all .3s;
+  background-color: rgb(255 255 255);
+  display: flex;
+  margin-top: 48px;
+  border-top: 1px solid #edeff1;
+}
+
+.conversationContainer {
+  height: 100%;
+  flex: 1 0 30%;
+  width: 33%;
+  max-width: 23.438em;
+  /* min-width: 20em; */
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all .3s;
+  border-right: 1px solid rgb(237 239 241);
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.conversationHeader {
+  display: flex;
+  align-items: center;
+  padding: 0 .3em 0 1em;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  justify-content: left;
+  border-bottom: transparent;
+  color: rgb(28 28 28);
+  min-height: 2.625em;
+}
+
+.conversationListContainer {
+  height: 100%;
+}
+
+.conversationItem {
+  color: rgb(28 28 28);
+  background-color: rgb(237 239 241);
+  display: flex;
+  cursor: pointer;
+  padding: .6em .625em .5em 1em;
+  text-decoration: inherit;
+}
+
+.userAvatar {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 2em;
+  height: 2em;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.userAvatar > i {
+  background-image: url(https://www.redditstatic.com/avatars/avatar_default_03_A06A42.png);
+  width: 2em;
+  height: 2em;
+  border-radius: 100%;
+  background-size: 100% 100%;
+  background-position: bottom;
+  display: inline-block;
+}
+
+.userPeak {
+  padding-left: .5em;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.userPeak > h4 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 0 .625em .1em 0;
+  line-height: 1.14em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.userPeak > div {
+  display: flex;
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 0 .625em 1px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.messageRegionContainer {
+  height: 100%;
+  flex: 2 1 70%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+}
+
+.messageRegionHeaderContainer {
+  padding: 0 1em;
+  min-height: 2.625em;
+  display: flex;
+  position: relative;
+  align-items: center;
+  transition: all .3s;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(237 239 241);
+}
+
+.messageRegionHeader {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgb(28 28 28);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  padding-left: .5em;
+}
+
+.messageRegion {
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 9999 1 auto;
+}
+
+.messageList {
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow: overlay;
+  z-index: 0;
+  padding: 0 15px;
+  height: auto;
+  outline: none;
+}
+
+.userMeta {
+  margin-top: .625em;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.messageUserAvatar {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 100%;
+}
+
+.messageUserName {
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 500;
+  max-width: 12.5em;
+  padding: 0 .438em 0 .625em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgb(28 28 28);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.messageTime {
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 15px;
+  color: rgb(135 138 140);
+  display: inline-block;
+  vertical-align: top;
+}
+
+.messageContainer {
+  width: 100%;
+  /* table-layout: fixed; */
+  padding-left: 2em;
+  /* display: table; */
+  box-sizing: border-box;
+}
+
+.message {
+  background: rgb(237 239 241);
+  padding: .571em .857em;
+  opacity: 1;
+  max-width: 100%;
+  margin-bottom: .188em;
+  border-radius: 1.23em;
+  transition: all .3s;
+  display: inline-block;
+  box-sizing: border-box;
+  color: rgb(28 28 28);
+  word-wrap: break-word;
+
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  max-width: 100%;
+  white-space: pre-line;
+}
+
+.paddingSeparator {
+  height: 1.25rem;
+}
+
+.messageInputContainer {
+  flex-direction: row;
+  margin-bottom: .5em;
+  display: flex;
+  align-items: flex-end;
+}
+
+.messageTextContainer {
+  flex-direction: row;
+  background-color: #b3b3b31a;
+  border-radius: 1.25em;
+  flex: 1;
+  margin-left: 1em;
+  display: flex;
+  align-items: flex-end;
+}
+
+.messageTextInput {
+  height: 40px;
+  overflow-y: hidden;
+  display: block;
+  max-height: 7.7em;
+  background: transparent;
+  color: rgb(28 28 28);
+  width: calc(100% - 2.857em);
+  
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  word-wrap: break-word;
+  border: 0;
+  padding: 12px 0 0 1.07em;
+  min-height: 40px;
+  margin: 0;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.sendButton {
+  height: 3.33em;
+  width: 3.33em;
+  display: inline-block;
+  transition: all .3s;
+  justify-content: center;
+  align-items: center;
+  margin: 0 .6em;
+  line-height: normal;
+  padding: .1em .8em .2em;
+  
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  border-radius: 4px;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: rgb(255 255 255);
+}
+
+.sendButton > svg {
+  height: 1.643em;
+  width: 1.643em;
+  padding: 0;
+  margin: 0;
+  fill: rgb(36 160 237);
+  vertical-align: middle;
+}
