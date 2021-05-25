@@ -36,3 +36,11 @@ exports.authUser = async (req, res, next) => {
     }
   )
 }
+
+// @desc		Get User Data
+// @route		GET /api/auth/user
+// @access	Private
+exports.getUser = async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("-password")
+  res.json(user);
+}
