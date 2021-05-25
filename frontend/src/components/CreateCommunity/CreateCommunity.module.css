@@ -1,0 +1,167 @@
+.mainContainer {
+  padding-top: 48px;
+  display: flex;
+  height: 100%;
+  min-height: 668px;
+  pointer-events: none;
+}
+
+.subContainer {
+  align-self: center;
+  background-color: white;
+  border-radius: 4px;
+  display: flex;
+  max-width: 568px;
+  position: relative;
+  width: fit-content;
+  min-height: calc(100vh - 48px);
+  margin: 0;
+  pointer-events: auto;
+}
+
+.art {
+  background-image: url(https://www.redditstatic.com/desktop2x/img/partner-connection.png);
+  flex: 0 0 140px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 4px 0 0 4px;
+  width: 140px;
+}
+
+.createRegionContainer {
+  align-items: center;
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100vw;
+  padding: 16px;
+  position: relative;
+  margin: 0;
+  flex: 1 1 100%;
+}
+
+.createHeader {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  border-bottom: 1px solid rgb(237 239 241);
+  color: rgb(28 28 28);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 0 0 16px;
+}
+
+.createSection {
+  flex-direction: column;
+  margin-bottom: 24px;
+  display: flex;
+}
+
+.createSectionHeader {
+  max-width: 100%;
+  margin-bottom: -4px;
+  flex-direction: column;
+  margin-right: 8px;
+  display: flex;
+}
+
+.createSectionTitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgb(28 28 28);
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.createSectionDesc {
+  font-weight: 400;
+  color: rgb(124 124 124);
+  font-size: 12px;
+  line-height: 16px;
+  margin: 0;
+}
+
+.createInputContainer {
+  align-items: flex-start;
+  margin-top: 12px;
+  flex-direction: column;
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.communityNameInput {
+  border: 1px solid rgb(237 239 241);
+  color: rgb(28 28 28);
+  box-sizing: border-box;
+  height: 48px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  padding: 12px 24px 4px 12px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  font-family: inherit;
+}
+
+.communityDescInput {
+  margin-bottom: 4px;
+  resize: vertical;
+  background-color: rgb(255 255 255);
+  border: 1px solid rgb(237 239 241);
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: rgb(28 28 28);
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  font-family: inherit;
+}
+
+.submitRegion {
+  width: 100%;
+  padding: 16px;
+  margin: 16px -16px -16px;
+  display: flex;
+  justify-content: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.themeButton {
+  margin-left: 8px;
+  
+  position: relative;
+  background-color: rgb(0 121 211);
+  border: none;
+  color: rgb(255 255 255);
+  fill: rgb(255 255 255);
+
+  font-family: "Noto Sans",Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: unset;
+  line-height: 17px;
+  text-transform: unset;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 16px;
+  
+  align-items: center;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: auto;
+  cursor: pointer;
+}
+
+.themeButton:hover {
+  opacity: 0.8;
+}

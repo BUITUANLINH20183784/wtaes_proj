@@ -2,6 +2,7 @@ import "./App.css";
 import { MainContent } from "./components/MainContent/";
 import { MenuBar } from "./components/MenuBar/";
 import { Entrance } from "./components/Entrance/";
+import { CreateCommunity } from "./components/CreateCommunity/";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { GlobalProvider } from "./context/GlobalState";
@@ -32,6 +33,9 @@ function App() {
                 </Route>
                 <Route path="/submit">
                   <MainContent context="submit"/>
+                </Route>
+                <Route path="/create">
+                  <CreateCommunity />
                 </Route>
                 <Route path="/">
                   <MainContent context="home"/>
