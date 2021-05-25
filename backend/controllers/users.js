@@ -1,5 +1,6 @@
 const User = require("../models/User");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // @desc		Register New User
 // @route		POST /api/users
@@ -28,12 +29,21 @@ exports.postUser = async (req, res, next) => {
       newUser.password = hash;
       newUser.save()
         .then(user => {
-          res.json({
-            user: {
-              id: user.id,
-              username: user.username
+          jwt.sign(
+            { id: user.id },
+            process.env.JWT_SECRET,
+            { expiresIn: 3600 },
+            (err, token) => {
+              if (err) throw err;
+              res.json({
+                token,
+                user: {
+                  id: user.id,
+                  username: user.username
+                }
+              })
             }
-          })
+          )
         })
     })
   })
