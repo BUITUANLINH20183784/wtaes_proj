@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema({
+const CommentSchema = new mongoose.Schema({
   content: {
-    type: String,
-  },
-  title: {
     type: String,
     required: true,
   },
@@ -17,17 +14,11 @@ const PostSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  communityID: {
+  postID: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "Community",
+    ref: "Post",
   },
-  commentID: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    }
-  ],
   vote: [
     {
       status: {
@@ -47,4 +38,4 @@ const PostSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Comment", CommentSchema);
