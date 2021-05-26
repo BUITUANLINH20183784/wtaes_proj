@@ -1,18 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { getPosts, addPost, deletePost, updatePost } = require("../controllers/posts");
+const { getPosts, addPost, votePost } = require("../controllers/posts");
 const auth = require("../middleware/auth")
 
-router.use(auth)
+router.get("/", getPosts)
+router.post("/", auth, addPost);
+router.post("/vote", auth, votePost);
 
-router
-	.route("/")
-	.get(getPosts)
-	.post(addPost);
-
-router
-	.route("/:id")
-	.delete(deletePost)
-	.put(updatePost);
+// router
+// 	.route("/:id")
+// 	.delete(deletePost)
+// 	.put(updatePost);
 
 module.exports = router;

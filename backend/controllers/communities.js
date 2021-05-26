@@ -29,6 +29,7 @@ exports.addCommunity = async (req, res, next) => {
 		const community = await Community.create({ name, desc, creatorID: req.user.id, memberID: [req.user.id], memberCount: 1 });
     const user = await User.findById(req.user.id)
     user.joinedCommunityID.push(community.id);
+    user.createdCommunityID.push(community.id)
     await user.save()
 		return res.status(201).json({
 			success: true,
@@ -69,17 +70,9 @@ exports.updateMember = async (req, res, next) => {
       } else return res.status(400).json({ msg: "Already joined" })
     } else if (status === "leave") {
       if (community.memberID.indexOf(req.user.id) !== -1) {
-        // community.memberID.filter(id => id !== req.user.id);
-        await community.updateOne(
-          {  },
-          { $pull: { memberID: { id: req.user.id } }},
-        )
+        community.memberID.pull(req.user.id);
         community.memberCount--;
-        // user.joinedCommunityID.filter(id => id !== communityID);
-        await user.updateOne(
-          {  },
-          { $pull: { joinedCommunityID: { id: communityID } }},
-        )
+        user.joinedCommunityID.pull(communityID);
       } else return res.status(400).json({ msg: "Not joined" })
     } else return res.status(400).json({ msg: "Invalid option" })
 
