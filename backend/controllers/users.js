@@ -48,3 +48,22 @@ exports.postUser = async (req, res, next) => {
     })
   })
 }
+
+// @desc		Get All Users
+// @route		GET /api/users
+// @access	Public
+exports.getUser = async (req, res, next) => {
+  try {
+		const users = await User.find().select("-password -conversation");
+		return res.status(200).json({
+			success: true,
+			count: users.length,
+			data: users,
+		});
+	} catch (error) {
+		return res.status(500).json({
+			success: false,
+			error: "Server Error"
+		});
+	}
+}

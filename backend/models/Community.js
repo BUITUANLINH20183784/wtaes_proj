@@ -30,6 +30,10 @@ const CommunitySchema = new mongoose.Schema({
   memberCount: {
     type: Number,
     required: true,
+    default: 0,
+  },
+  desc: {
+    type: String,
   }
 });
 
