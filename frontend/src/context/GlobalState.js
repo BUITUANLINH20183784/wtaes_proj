@@ -6,6 +6,11 @@ import axios from "axios";
 const initialState = {
   posts: [],
   error: null,
+  current_user: {
+    token: localStorage.getItem("token"),
+    isAuthenticated: null,
+    user: null
+  },
 };
 
 // Create context
@@ -66,17 +71,64 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  // Auth
+  const loadUser = () => {
+    const token = state.current_user.token;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (token) {
+      config.headers["x-auth-token"] = token;
+    }
+    axios.get("api/auth/user", config)
+      .then(res => dispatch({
+        type: "USER_LOADED",
+        payload: res.data
+      }))
+      .catch(error => {
+        dispatch({
+          type: "AUTH_ERROR",
+        })
+      })
+  }
+
+  const register = ({ username, password }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ username, password });
+    axios.post("api/users", body, config)
+      .then(res => dispatch({
+        type: "REGISTER_SUCCESS",
+        payload: res.data
+      }))
+      .catch(error => {
+        dispatch({
+          type: "REGISTER_FAIL",
+        })
+      })
+  }
+
   return (
     <GlobalContext.Provider
       value={{
         posts: state.posts,
         error: state.error,
+        current_user: state.current_user,
         getPosts,
         addPost,
-        deletePost,
+        // deletePost,
+        loadUser,
+        register,
       }}
     >
       {children}
     </GlobalContext.Provider>
   );
 };
+
+export const withGlobal = (Component) => () => (<GlobalProvider><Component/></GlobalProvider>)

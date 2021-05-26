@@ -109,9 +109,14 @@
   letter-spacing: .5px;
   line-height: 24px;
 }
+
 .bottomText > a {
   color: #0079d3;
   text-decoration: none;
+}
+
+.bottomText > a:hover {
+  cursor: pointer;
 }
 
 .bottomLink {
@@ -121,4 +126,13 @@
   letter-spacing: .5px;
   line-height: 24px;
   text-transform: uppercase;
+}
+
+.bottomLink:hover {
+  cursor: pointer;
+}
+
+.reactLink {
+  color: inherit;
+  text-decoration: inherit;
 }
