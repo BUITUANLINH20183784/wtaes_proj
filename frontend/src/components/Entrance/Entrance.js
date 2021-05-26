@@ -1,14 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./Entrance.module.css";
 import { GlobalContext } from "../../context/GlobalState";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 export default (props) => {
-  const { register, current_user } = useContext(GlobalContext);
-
-  useEffect(() => {
-    if (current_user.isAuthenticated) props.history.push("/");
-  }, []);
+  const { register, current_user, login } = useContext(GlobalContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +18,7 @@ export default (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (props.context === "login") {
+      login({ username, password });
     } else if (props.context === "signup") {
       register({ username, password });
     }
@@ -29,6 +26,7 @@ export default (props) => {
 
   return (
     <div className={styles.step}>
+      {current_user.isAuthenticated ? <Redirect to="/"/> : null}
       <div className={styles.art}></div>
       <div className={styles.content}>
         <h1>

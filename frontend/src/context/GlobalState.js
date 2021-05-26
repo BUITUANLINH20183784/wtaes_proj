@@ -5,6 +5,8 @@ import axios from "axios";
 // Initial state
 const initialState = {
   posts: [],
+  communities: [],
+  comments: [],
   error: null,
   current_user: {
     token: localStorage.getItem("token"),
@@ -20,7 +22,7 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  // Actions
+  // Posts
   const getPosts = async () => {
     try {
       const res = await axios.get("/api/posts");
@@ -37,13 +39,8 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const addPost = async (post) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     try {
-      const res = await axios.post("/api/posts", post, config);
+      const res = await axios.post("/api/posts", post, tokenConfig());
       dispatch({
         type: "ADD_POST",
         payload: res.data.data,
@@ -72,7 +69,7 @@ export const GlobalProvider = ({ children }) => {
   };
 
   // Auth
-  const loadUser = () => {
+  const tokenConfig = () => {
     const token = state.current_user.token;
     const config = {
       headers: {
@@ -82,7 +79,11 @@ export const GlobalProvider = ({ children }) => {
     if (token) {
       config.headers["x-auth-token"] = token;
     }
-    axios.get("api/auth/user", config)
+    return config;
+  }
+
+  const loadUser = () => {
+    axios.get("api/auth/user", tokenConfig())
       .then(res => dispatch({
         type: "USER_LOADED",
         payload: res.data
@@ -113,17 +114,112 @@ export const GlobalProvider = ({ children }) => {
       })
   }
 
+  const logout = () => {
+    dispatch({
+      type: "LOGOUT_SUCCESS",
+    });
+  }
+
+  const login = ({ username, password }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ username, password });
+    axios.post("api/auth", body, config)
+      .then(res => dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: res.data
+      }))
+      .catch(error => {
+        dispatch({
+          type: "LOGIN_FAIL",
+        })
+      })
+  }
+
+  // Communities
+  const getCommunities = async () => {
+    try {
+      const res = await axios.get("/api/communities");
+      dispatch({
+        type: "GET_COMMUNITIES",
+        payload: res.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "COMMUNITY_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  };
+
+  const addCommunity = async (community) => {
+    try {
+      const res = await axios.post("/api/communities", community, tokenConfig());
+      dispatch({
+        type: "ADD_COMMUNITY",
+        payload: res.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "COMMUNITY_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  };
+
+  // Comments
+  const getComments = async () => {
+    try {
+      const res = await axios.get("/api/comments");
+      dispatch({
+        type: "GET_COMMENTS",
+        payload: res.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "COMMENT_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  };
+
+  const addComment = async (comment) => {
+    try {
+      const res = await axios.post("/api/comments", comment, tokenConfig());
+      dispatch({
+        type: "ADD_COMMENT",
+        payload: res.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "COMMENT_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
         posts: state.posts,
+        communities: state.communities,
+        comments: state.comments,
         error: state.error,
         current_user: state.current_user,
         getPosts,
         addPost,
         // deletePost,
+        getCommunities,
+        addCommunity,
+        getComments,
+        addComment,
         loadUser,
         register,
+        logout,
+        login,
       }}
     >
       {children}

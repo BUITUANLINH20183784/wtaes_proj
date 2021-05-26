@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./NavGroup.css";
 // import styles from "./NavGroup.module.css";
+import { GlobalContext } from "../../context/GlobalState";
 
 const Buttons = () => (
   <div className="buttons">
@@ -37,41 +38,65 @@ const SVGs = () => (
   </span>
 );
 
-const DropMenu = () => (
+const DropMenu = ({ isAuthenticated, logout }) => (
   <div className="dropMenu">
-    <Link className="option" to="/user/GuessIWillBeTracer">
-      <svg
-        className="optionSVG"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g fill="inherit">
-          <path d="M15,15.5 L5,15.5 C4.724,15.5 4.5,15.276 4.5,15 C4.5,12.755 6.326,10.929 8.571,10.929 L11.429,10.929 C13.674,10.929 15.5,12.755 15.5,15 C15.5,15.276 15.276,15.5 15,15.5 M10,4.5 C11.405,4.5 12.547,5.643 12.547,7.048 C12.547,8.452 11.405,9.595 10,9.595 C8.595,9.595 7.453,8.452 7.453,7.048 C7.453,5.643 8.595,4.5 10,4.5 M16,2 L4,2 C2.897,2 2,2.897 2,4 L2,16 C2,17.103 2.897,18 4,18 L16,18 C17.103,18 18,17.103 18,16 L18,4 C18,2.897 17.103,2 16,2"></path>
-        </g>
-      </svg>
-      <div className="optionText">Profile</div>
-    </Link>
-    <Link to="/login" className="option">
-      <svg
-        className="optionSVG"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g fill="inherit">
-          <path d="M15,2 L5,2 C4.447,2 4,2.447 4,3 L4,9 L9.586,9 L8.293,7.707 C7.902,7.316 7.902,6.684 8.293,6.293 C8.684,5.902 9.316,5.902 9.707,6.293 L12.707,9.293 C13.098,9.684 13.098,10.316 12.707,10.707 L9.707,13.707 C9.512,13.902 9.256,14 9,14 C8.744,14 8.488,13.902 8.293,13.707 C7.902,13.316 7.902,12.684 8.293,12.293 L9.586,11 L4,11 L4,17 C4,17.553 4.447,18 5,18 L15,18 C15.553,18 16,17.553 16,17 L16,3 C16,2.447 15.553,2 15,2"></path>
-        </g>
-      </svg>
-      <div className="optionText">Log In / Sign Up</div>
-    </Link>
+    {!isAuthenticated ? (
+      <Link to="/login" className="option">
+        <svg
+          className="optionSVG"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g fill="inherit">
+            <path d="M15,2 L5,2 C4.447,2 4,2.447 4,3 L4,9 L9.586,9 L8.293,7.707 C7.902,7.316 7.902,6.684 8.293,6.293 C8.684,5.902 9.316,5.902 9.707,6.293 L12.707,9.293 C13.098,9.684 13.098,10.316 12.707,10.707 L9.707,13.707 C9.512,13.902 9.256,14 9,14 C8.744,14 8.488,13.902 8.293,13.707 C7.902,13.316 7.902,12.684 8.293,12.293 L9.586,11 L4,11 L4,17 C4,17.553 4.447,18 5,18 L15,18 C15.553,18 16,17.553 16,17 L16,3 C16,2.447 15.553,2 15,2"></path>
+          </g>
+        </svg>
+        <div className="optionText">Log In / Sign Up</div>
+      </Link>
+    ) : (
+      <>
+        <Link className="option" to="/user/GuessIWillBeTracer">
+          <svg
+            className="optionSVG"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g fill="inherit">
+              <path d="M15,15.5 L5,15.5 C4.724,15.5 4.5,15.276 4.5,15 C4.5,12.755 6.326,10.929 8.571,10.929 L11.429,10.929 C13.674,10.929 15.5,12.755 15.5,15 C15.5,15.276 15.276,15.5 15,15.5 M10,4.5 C11.405,4.5 12.547,5.643 12.547,7.048 C12.547,8.452 11.405,9.595 10,9.595 C8.595,9.595 7.453,8.452 7.453,7.048 C7.453,5.643 8.595,4.5 10,4.5 M16,2 L4,2 C2.897,2 2,2.897 2,4 L2,16 C2,17.103 2.897,18 4,18 L16,18 C17.103,18 18,17.103 18,16 L18,4 C18,2.897 17.103,2 16,2"></path>
+            </g>
+          </svg>
+          <div className="optionText">Profile</div>
+        </Link>
+        <Link to="/" className="option" onClick={logout}>
+          <svg
+            className="optionSVG"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g fill="inherit">
+              <path d="M15,2 L5,2 C4.447,2 4,2.447 4,3 L4,9 L9.586,9 L8.293,7.707 C7.902,7.316 7.902,6.684 8.293,6.293 C8.684,5.902 9.316,5.902 9.707,6.293 L12.707,9.293 C13.098,9.684 13.098,10.316 12.707,10.707 L9.707,13.707 C9.512,13.902 9.256,14 9,14 C8.744,14 8.488,13.902 8.293,13.707 C7.902,13.316 7.902,12.684 8.293,12.293 L9.586,11 L4,11 L4,17 C4,17.553 4.447,18 5,18 L15,18 C15.553,18 16,17.553 16,17 L16,3 C16,2.447 15.553,2 15,2"></path>
+            </g>
+          </svg>
+          <div className="optionText">Logout</div>
+        </Link>
+      </>
+    )}
   </div>
 );
 
 export default () => {
   const [dropdown, setDropdown] = useState(false);
+  const { current_user, logout } = useContext(GlobalContext);
+
+  const onDropClick = (next) => () => {
+    dropdown ? setDropdown(false) : setDropdown(true);
+    next();
+  };
+
   return (
     <div className="nav-wrapper">
       <div className="nav-group">
-        <Buttons />
+        {current_user.isAuthenticated ? null : <Buttons />}
         <div id="email-verification-tooltip-id" className="group">
           <div className="header-user-dropdown">
             <button
@@ -86,7 +111,14 @@ export default () => {
               <SVGs />
               <span className="detail">User account menu</span>
             </button>
-            {dropdown ? <DropMenu /> : ""}
+            {dropdown ? (
+              <DropMenu
+                isAuthenticated={current_user.isAuthenticated}
+                logout={onDropClick(logout)}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
