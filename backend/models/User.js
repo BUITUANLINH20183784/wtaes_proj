@@ -32,6 +32,12 @@ const UserSchema = new mongoose.Schema({
       ref: "Community",
     }
   ],
+  createdCommentID: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    }
+  ],
   conversation: [
     {
       userID: {
@@ -46,6 +52,10 @@ const UserSchema = new mongoose.Schema({
             required: true,
           },
           content: String,
+          dateCreated: {
+            type: Date,
+            default: Date.now(),
+          },
         }
       ]
     }
