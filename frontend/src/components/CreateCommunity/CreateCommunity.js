@@ -5,6 +5,7 @@ import styles from "./CreateCommunity.module.css";
 
 export default () => {
   const { current_user, addCommunity } = useContext(GlobalContext);
+  const [created, setCreated] = useState(false)
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const onChangeName = (e) => {
@@ -18,11 +19,13 @@ export default () => {
       name,
       desc,
     });
+    setCreated(true)
   };
 
   return (
     <div className={styles.mainContainer}>
       {current_user.isAuthenticated ? null : <Redirect to="/login" />}
+      {created ? <Redirect to="/"/> : null}
       <div className={styles.subContainer}>
         <div className={styles.art}></div>
         <CreateRegion data={{ name, desc, onChangeName, onChangeDesc, onSubmit }}/>
