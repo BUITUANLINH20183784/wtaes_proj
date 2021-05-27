@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styles from "./PostList.module.css";
 import { GlobalContext } from "../../../../context/GlobalState";
+import { Link } from "react-router-dom";
 
 export default ({ context }) => {
   const { posts, communities, users } = useContext(GlobalContext);
@@ -80,11 +81,11 @@ export default ({ context }) => {
           </div>
           <div className={styles.contentTitle}>
             <div>
-              <a href="/">
+              <Link to={`/p/${data._id}`}>
                 <div>
                   {data.title}
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
           <div className={styles.contentText}>

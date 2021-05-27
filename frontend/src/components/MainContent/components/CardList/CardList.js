@@ -35,11 +35,11 @@ const TrendingCard = ({ communities, user }) => {
     <div className={styles.commmunityContainer}>
       <CommunityIcon />
       <CommunityInfor community={community} />
-      {user.joinedCommunityID ? (
-        user.joinedCommunityID.find(id => id == community._id) ? null : (
-          <JoinButton />
+      {user ? user.joinedCommunityID ? (
+        user.joinedCommunityID.find(id => id == community._id) ? <JoinButton state={false}/> : (
+          <JoinButton state={true}/>
         )
-      ) : null}
+      ) : null : null}
     </div>
   );
 
@@ -65,10 +65,10 @@ const TrendingCard = ({ communities, user }) => {
     );
   };
 
-  const JoinButton = () => {
+  const JoinButton = ({ state }) => {
     return (
       <div className={styles.joinButtonContainer}>
-        <button className={styles.joinButton}>Join</button>
+        <button className={styles.joinButton}>{state ? "Join" : "Leave"}</button>
       </div>
     );
   };

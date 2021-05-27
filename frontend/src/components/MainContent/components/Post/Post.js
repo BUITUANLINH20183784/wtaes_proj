@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Post.module.css";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { GlobalContext } from "../../../../context/GlobalState";
 
-export default () => {
+const Post = ({ match }) => {
+  const { posts, current_user, addComment, communities } = useContext(GlobalContext)
+  const post = posts.find(post => post._id == match.params.id)
+  const community = post ? communities.find(community => community._id === post.communityID) : null
+
   return (
     <div className={styles.threadContainer}>
-      <MainPost />
+      <MainPost post={post} community={community}/>
       <div className={styles.threadSeparator}></div>
-      <UserComment />
+      <UserComment user={current_user.user} addComment={addComment}/>
       <hr className={styles.commentSeparator}></hr>
-      <CommentList />
+      <CommentList post={post}/>
     </div>
   );
 };
 
-const MainPost = () => {
+export default withRouter(Post)
+
+const MainPost = ({ post, community }) => {
   const VoteRegion = () => (
     <div className={styles.vote}>
       <div className={styles.voteGroup}>
@@ -23,7 +30,7 @@ const MainPost = () => {
             <i className={styles.iconUpvote}></i>
           </span>
         </button>
-        <div className={styles.voteCount}>28.2k</div>
+        <div className={styles.voteCount}>{post ? post.voteCount : 0}</div>
         <button className={styles.voteButton}>
           <span className={styles.buttonSpan}>
             <i className={styles.iconDownvote}></i>
@@ -47,7 +54,10 @@ const MainPost = () => {
         <div>
           <div className={styles.name}>
             <a href="/r/something/" className={styles.community}>
-              r/TwoXChromosomes
+              {/* {console.log(communities)}
+              {console.log(communities.length === 0)}
+              {console.log(communities[0])} */}
+              r/{community ? community.name : null}
             </a>
           </div>
           <span className={styles.separator}>•</span>
@@ -147,7 +157,7 @@ const CommentList = () => {
   const CommentDetail = () => (
     <div className={styles.commentDetailContainer}>
       <div className={styles.commentMeta}>
-        <Link className={styles.commentAuthorLink} href="/user/skinneej/">skinneej</Link>
+        <Link className={styles.commentAuthorLink} to="/user/skinneej/">skinneej</Link>
         <Link className={styles.commentMetaTime}>7 hours ago</Link>
       </div>
       <div className={styles.commentContent}>
