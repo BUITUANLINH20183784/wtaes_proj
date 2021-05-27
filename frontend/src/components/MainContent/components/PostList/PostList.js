@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./PostList.module.css";
+import { GlobalContext } from "../../../../context/GlobalState";
 
-export default () => {
-  return (
-    <div className={styles.container}>
+export default ({ context }) => {
+  const { posts, communities } = useContext(GlobalContext);
+
+  const list = posts;
+
+  const Post = ({ data }) => {
+    return (
       <div className={styles.post}>
         <div className={styles.vote}>
           <div className={styles.voteGroup} id="vote-arrows">
@@ -16,7 +21,7 @@ export default () => {
                 <i className={styles.iconUpvote}></i>
               </span>
             </button>
-            <div className={styles.voteCount}>28.2k</div>
+            <div className={styles.voteCount}>{data.voteCount}</div>
             <button
               aria-label="downvote"
               aria-pressed="false"
@@ -43,7 +48,7 @@ export default () => {
               <div>
                 <div className={styles.name}>
                   <a href="/r/something/" className={styles.community}>
-                    r/TwoXChromosomes
+                    {/* r/{communities.find(community => community._id == data.communityID).name} */}
                   </a>
                 </div>
                 <span className={styles.separator}>•</span>
@@ -105,6 +110,13 @@ export default () => {
           </div>
         </div>
       </div>
+    )
+  }
+
+  return (
+    <div className={styles.container}>
+      {console.log(communities)}
+      {list.map(post => <Post key={post.id} data={post}/>)}
     </div>
   );
 };

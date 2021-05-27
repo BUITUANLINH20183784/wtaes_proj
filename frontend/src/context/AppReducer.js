@@ -52,7 +52,19 @@ export default (state, action) => {
 				...state,
 				error: action.payload,
 			}
+			
+		case "GET_USERS":
+			return {
+				...state,
+				users: action.payload,
+			}
+		case "USER_ERROR":
+			return {
+				...state,
+				error: action.payload,
+			}
 
+		case "USER_UPDATED":
 		case "USER_LOADED":
 			return {
 				...state,

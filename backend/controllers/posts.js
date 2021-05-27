@@ -1,5 +1,6 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+const Community = require("../models/Community");
 
 // @desc		Get All Posts
 // @route		GET /api/posts
@@ -33,6 +34,9 @@ exports.addPost = async (req, res, next) => {
 			communityID,
 			voteCount: 0
 		});
+		const community = await Community.findById(communityID);
+		communityID.postID.push(post.id);
+		await community.save();
     const user = await User.findById(req.user.id)
     user.createdPostID.push(post.id);
     await user.save();

@@ -34,6 +34,7 @@ exports.addCommunity = async (req, res, next) => {
 		return res.status(201).json({
 			success: true,
 			data: community,
+			user,
 		});
 	} catch (error) {
 		console.log(error);
@@ -80,6 +81,8 @@ exports.updateMember = async (req, res, next) => {
     await user.save();
 		return res.status(200).json({
 			success: true,
+			community,
+			user,
 		});
 	} catch (error) {
 		console.log(error);

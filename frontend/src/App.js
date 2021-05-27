@@ -10,10 +10,14 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { GlobalProvider, withGlobal, GlobalContext } from "./context/GlobalState";
 
 function App() {
-  const { current_user, loadUser } = useContext(GlobalContext);
+  const { loadUser, getPosts, getCommunities, getComments, getUsers } = useContext(GlobalContext);
 
   useEffect(() => {
     loadUser();
+    getPosts();
+    getCommunities();
+    getComments();
+    getUsers();
   }, [])
 
   return (

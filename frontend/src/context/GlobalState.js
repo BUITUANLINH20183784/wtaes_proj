@@ -7,6 +7,7 @@ const initialState = {
   posts: [],
   communities: [],
   comments: [],
+  users: [],
   error: null,
   current_user: {
     token: localStorage.getItem("token"),
@@ -162,6 +163,10 @@ export const GlobalProvider = ({ children }) => {
         type: "ADD_COMMUNITY",
         payload: res.data.data,
       });
+      dispatch({
+        type: "USER_UPDATED",
+        payload: res.data.user,
+      });
     } catch (error) {
       dispatch({
         type: "COMMUNITY_ERROR",
@@ -201,12 +206,29 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  // Users
+  const getUsers = async () => {
+    try {
+      const res = await axios.get("/api/users");
+      dispatch({
+        type: "GET_USERS",
+        payload: res.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "USER_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
         posts: state.posts,
         communities: state.communities,
         comments: state.comments,
+        users: state.users,
         error: state.error,
         current_user: state.current_user,
         getPosts,
@@ -216,6 +238,7 @@ export const GlobalProvider = ({ children }) => {
         addCommunity,
         getComments,
         addComment,
+        getUsers,
         loadUser,
         register,
         logout,
