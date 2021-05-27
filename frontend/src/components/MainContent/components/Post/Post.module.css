@@ -417,6 +417,11 @@
   width: auto;
 }
 
+.commentButton:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
 .commentSeparator {
   background-color: rgb(237 239 241);
   border: none;

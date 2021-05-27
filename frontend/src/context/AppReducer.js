@@ -10,6 +10,11 @@ export default (state, action) => {
 				...state,
 				posts: [...state.posts, action.payload],
 			}
+		case "UPDATE_POST":
+			return {
+				...state,
+				posts: [...state.posts.filter(post => post._id !== action.payload._id), action.payload],
+			}
 		case "DELETE_POST":
 			return {
 				...state,
@@ -31,6 +36,11 @@ export default (state, action) => {
 				...state,
 				communities: [...state.communities, action.payload],
 			}
+		case "UPDATE_COMMUNITY":
+			return {
+				...state,
+				communities: [...state.communities.filter(community => community._id !== action.payload._id), action.payload],
+			}
 		case "COMMUNITY_ERROR":
 			return {
 				...state,
@@ -47,6 +57,11 @@ export default (state, action) => {
 				...state,
 				comments: [...state.comments, action.payload],
 			}
+		case "UPDATE_COMMENT":
+			return {
+				...state,
+				comments: [...state.comments.filter(comment => comment._id !== action.payload._id), action.payload],
+			}
 		case "COMMENT_ERROR":
 			return {
 				...state,
@@ -57,6 +72,11 @@ export default (state, action) => {
 			return {
 				...state,
 				users: action.payload,
+			}
+		case "UPDATE_USER":
+			return {
+				...state,
+				users: [...state.users.filter(user => user._id !== action.payload._id), action.payload],
 			}
 		case "USER_ERROR":
 			return {

@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import styles from "./CardList.module.css";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { GlobalContext } from "../../../../context/GlobalState";
 
-export default ({ context }) => {
-  const { communities, current_user } = useContext(GlobalContext);
+const CardList = ({ context, match }) => {
+  const { communities, current_user, posts } = useContext(GlobalContext);
+  const post = !posts ? null : posts.find(post => post._id === match.params.id)
 
   return (
     <div className={styles.list}>
@@ -14,13 +15,15 @@ export default ({ context }) => {
       ) : context === "user" ? (
         <UserCard />
       ) : context === "community" ? (
-        <CommunityCard />
+        <CommunityCard community={!communities ? null : communities.find(community => community._id === match.params.id)} />
       ) : context === "post" ? (
-        <CommunityCard />
+        <CommunityCard community={!communities ? null : !post ? null : communities.find(community => community._id === post.communityID)} />
       ) : null}
     </div>
   );
 };
+
+export default withRouter(CardList)
 
 const TrendingCard = ({ communities, user }) => {
   const CommunityList = () => (
@@ -128,7 +131,7 @@ const UserCard = () => {
   );
 };
 
-const CommunityCard = () => {
+const CommunityCard = ({ community }) => {
   const Infor = () => (
     <div className={styles.communityListContainer}>
       <div className={styles.communityMain}>
@@ -138,20 +141,20 @@ const CommunityCard = () => {
         ></img>
         <div className={styles.communityName}>
           <Link className={styles.communityLink}>
-            <span>r/Bear</span>
+            <span>r/{!community ? null : community.name}</span>
           </Link>
         </div>
       </div>
-      <div className={styles.communityDesc}>Interesting technology news</div>
+      <div className={styles.communityDesc}>{!community ? null : community.desc}</div>
       <div className={styles.communityStatistics}>
         <div className={styles.totalMember}>
-          <div className={styles.statisticsNumber}>298k</div>
+          <div className={styles.statisticsNumber}>{!community ? null : community.memberID.length}</div>
           <p className={styles.statisticsText}>Members</p>
         </div>
-        <div className={styles.onlineMembers}>
+        {/* <div className={styles.onlineMembers}>
           <div className={styles.statisticsNumber}>888</div>
           <p className={styles.statisticsText}>Online</p>
-        </div>
+        </div> */}
         <div className={styles.statisticsPad}></div>
       </div>
       <hr className={styles.separator} />
@@ -171,7 +174,7 @@ const CommunityCard = () => {
             </g>
           </g>
         </svg>
-        Created May 27, 2008
+        Created {!community ? null : new Date(community.dateCreated).toLocaleDateString("en-US")}
       </div>
       <ThemeButton text="Create Post" />
     </div>

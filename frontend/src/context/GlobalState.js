@@ -46,6 +46,14 @@ export const GlobalProvider = ({ children }) => {
         type: "ADD_POST",
         payload: res.data.data,
       });
+      dispatch({
+        type: "UPDATE_COMMUNITY",
+        payload: res.data.community,
+      });
+      dispatch({
+        type: "USER_UPDATED",
+        payload: res.data.user,
+      });
     } catch (error) {
       dispatch({
         type: "POST_ERROR",
@@ -197,6 +205,14 @@ export const GlobalProvider = ({ children }) => {
       dispatch({
         type: "ADD_COMMENT",
         payload: res.data.data,
+      });
+      dispatch({
+        type: "UPDATE_POST",
+        payload: res.data.post,
+      });
+      dispatch({
+        type: "USER_UPDATED",
+        payload: res.data.user,
       });
     } catch (error) {
       dispatch({

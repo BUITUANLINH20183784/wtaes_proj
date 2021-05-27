@@ -1,27 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./Post.module.css";
 import { Link, withRouter } from "react-router-dom";
 import { GlobalContext } from "../../../../context/GlobalState";
 
 const Post = ({ match }) => {
-  const { posts, current_user, addComment, communities } = useContext(GlobalContext)
+  const { posts, current_user, addComment, communities, users, comments } = useContext(GlobalContext)
   const post = posts.find(post => post._id == match.params.id)
   const community = post ? communities.find(community => community._id === post.communityID) : null
+  const author = post ? users.find(user => user._id === post.authorID) : null
+  const commentList = !post ? null : post.commentID.map(id => comments.find(comment => comment._id === id))
 
   return (
     <div className={styles.threadContainer}>
-      <MainPost post={post} community={community}/>
+      <MainPost post={post} community={community} author={author} user={current_user.user}/>
       <div className={styles.threadSeparator}></div>
-      <UserComment user={current_user.user} addComment={addComment}/>
+      {!current_user.user ? null : <UserComment user={current_user.user} addComment={addComment} post={post}/>}
       <hr className={styles.commentSeparator}></hr>
-      <CommentList post={post}/>
+      <CommentList post={post} comments={commentList} users={users}/>
     </div>
   );
 };
 
 export default withRouter(Post)
 
-const MainPost = ({ post, community }) => {
+const MainPost = ({ post, community, author, user }) => {
   const VoteRegion = () => (
     <div className={styles.vote}>
       <div className={styles.voteGroup}>
@@ -43,7 +45,7 @@ const MainPost = ({ post, community }) => {
   const ContentMeta = () => (
     <div className={styles.contentMeta}>
       <div className={styles.communityIcon}>
-        <a href="/r/something/">
+        <a>
           <img
             alt="Subreddit Icon"
             src="https://b.thumbs.redditmedia.com/XIv6AipVy7QRJeVzevFxYwhCwD-0GxmkismT3tTyAZI.png"
@@ -54,9 +56,6 @@ const MainPost = ({ post, community }) => {
         <div>
           <div className={styles.name}>
             <a href="/r/something/" className={styles.community}>
-              {/* {console.log(communities)}
-              {console.log(communities.length === 0)}
-              {console.log(communities[0])} */}
               r/{community ? community.name : null}
             </a>
           </div>
@@ -64,13 +63,13 @@ const MainPost = ({ post, community }) => {
           <span className={styles.misc}>Posted by</span>
           <div className={styles.name}>
             <a href="/user/ilovecatswastaken/" className={styles.user}>
-              u/ilovecatswastaken
+              u/{author ? author.username : null}
             </a>
           </div>
-          <a className={styles.time}>17 hours ago</a>
+          <a className={styles.time}>{post ? new Date(post.dateCreated).toLocaleDateString("en-US") : null}</a>
         </div>
       </div>
-      <button className={styles.buttonJoin}>
+      {!user ? null : !user.joinedCommunityID ? null : !user.joinedCommunityID.find(id => id === community._id) ? null : <button className={styles.buttonJoin}>
         <svg viewBox="0 0 20 20" version="1.1">
           <g stroke="none">
             <g
@@ -82,7 +81,7 @@ const MainPost = ({ post, community }) => {
           </g>
         </svg>
         <span>Join</span>
-      </button>
+      </button>}
     </div>
   )
 
@@ -95,11 +94,9 @@ const MainPost = ({ post, community }) => {
             <ContentMeta />
             <div className={styles.contentTitle}>
               <div>
-                <a href="/">
+                <a>
                   <div>
-                    You get to go into any fictional universe for 30 days.
-                    Anything you buy, skills acquired, etc will be transferred
-                    to the real world, with zero reprecussions. Where do you go?
+                    {!post ? null : post.title}
                   </div>
                 </a>
               </div>
@@ -108,13 +105,7 @@ const MainPost = ({ post, community }) => {
               <div>
                 <div>
                   <p>
-                    Abortions banned after 6 weeks with extremely rare
-                    exceptions. We're looking at lawsuits and ladies, nothing
-                    about the men here, except they can sue us for this as well;
-                    I guess telling us what to do with our bodies isn't enough!
-                    Texas is even pushing for bills that go as far as to give a
-                    woman the death penalty for an illegal abortion, but this
-                    has not passed
+                    {!post ? null : post.content}
                   </p>
                 </div>
               </div>
@@ -123,7 +114,7 @@ const MainPost = ({ post, community }) => {
               <div>
                 <a href="/r/NintendoSwitch/comments/nhr2pe/what_games_have_really_long_gameplay_value/">
                   <i></i>
-                  <span>4.4k comments</span>
+                  <span>{!post ? null : !post.commentID ? null : post.commentID.length} comments</span>
                 </a>
               </div>
             </div>
@@ -134,39 +125,56 @@ const MainPost = ({ post, community }) => {
   );
 };
 
-const UserComment = () => {
+const UserComment = ({ user, addComment, post }) => {
+  const [content, setContent] = useState("")
+  const onChange = (e) => {
+    setContent(e.target.value)
+  }
+  const onSubmit = () => {
+    setContent("")
+    addComment({
+      postID: post._id,
+      content,
+    })
+  }
+
   return (
     <div className={styles.userCommentRegion}>
       <div className={styles.commentAs}>
-        Comment As <Link className={styles.commentAsLink}>Okay</Link>
+        Comment As <Link className={styles.commentAsLink}>{!user ? null : user.username}</Link>
       </div>
-      <textarea className={styles.userCommentBox}>
+      <textarea className={styles.userCommentBox} value={content} onChange={onChange}>
       </textarea>
-      <button className={styles.commentButton}>Comment</button>
+      <button className={styles.commentButton} onClick={onSubmit}>Comment</button>
     </div>
   )
 }
 
-const CommentList = () => {
+const CommentList = ({ comments, users }) => {
+  const commentList = !comments ? null : comments.map(comment => ({
+    comment,
+    author: !users ? null : users.find(user => user._id === comment.authorID)
+  }))
+
   const CommentAvatar = () => (
     <Link className={styles.commentAvatarLink}>
-      <img alt="User avatar" className={styles.commentAvatar} src="https://styles.redditmedia.com/t5_c0ic1/styles/profileIcon_58wdfpg2n7l61.jpg?width=256&amp;height=256&amp;crop=256:256,smart&amp;s=a4073896d24ed282c6bf65725d8837663825448d"></img>
+      <img alt="User avatar" className={styles.commentAvatar} src="https://www.redditstatic.com/avatars/avatar_default_03_A06A42.png"></img>
     </Link>
   )
 
-  const CommentDetail = () => (
+  const CommentDetail = ({ data }) => (
     <div className={styles.commentDetailContainer}>
       <div className={styles.commentMeta}>
-        <Link className={styles.commentAuthorLink} to="/user/skinneej/">skinneej</Link>
-        <Link className={styles.commentMetaTime}>7 hours ago</Link>
+        <Link className={styles.commentAuthorLink} to={`/u/${!data.author ? null : data.author._id}`}>{!data.author ? null : data.author.username}</Link>
+        <Link className={styles.commentMetaTime}>{!data.comment ? null : new Date(data.comment.dateCreated).toLocaleDateString("en-US")}</Link>
       </div>
       <div className={styles.commentContent}>
-        <p>Did you know Rizzo chokes up with 2 strikes???</p>
+        <p>{!data.comment ? null : data.comment.content}</p>
       </div>
       <div className={styles.commentAction}>
         <div className={styles.commentVoteRegion}>
           <button className={styles.buttonUpvote}><i/></button>
-          <div className={styles.commentVoteCount}>30</div>
+          <div className={styles.commentVoteCount}>{!data.comment ? null : data.comment.voteCount}</div>
           <button className={styles.buttonDownvote}><i/></button>
         </div>
       </div>
@@ -175,10 +183,10 @@ const CommentList = () => {
 
   return (
     <div className={styles.commentListContainer}>
-      <div className={styles.comment}>
-        <CommentAvatar />
-        <CommentDetail />
-      </div>
+      {!commentList ? null : commentList.map(comment => <div className={styles.comment}>
+        <CommentAvatar data={comment} />
+        <CommentDetail data={comment} />
+      </div>)}
     </div>
   )
 }
