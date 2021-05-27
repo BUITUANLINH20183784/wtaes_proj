@@ -161,6 +161,19 @@
   position: relative;
 }
 
+.profileIcon {
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.profileIcon::before {
+  font-family: redesignFont2020;
+  content: "\f21a";
+}
+
 .plusIcon {
   height: 20px;
   width: 20px;
@@ -172,6 +185,32 @@
 .plusIcon::before {
   font-family: redesignFont2020;
   content: "\f103";
+}
+
+.messageIcon {
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.messageIcon::before {
+  font-family: redesignFont2020;
+  content: "\f13d";
+}
+
+.entranceIcon {
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.entranceIcon::before {
+  font-family: redesignFont2020;
+  content: "\f1d0";
 }
 
 .option:hover {

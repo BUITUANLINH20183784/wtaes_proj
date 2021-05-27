@@ -73,9 +73,9 @@ const PostList = ({ context, match }) => {
                 <span className={styles.separator}>•</span>
                 <span className={styles.misc}>Posted by</span>
                 <div className={styles.name}>
-                  <a href="/user/ilovecatswastaken/" className={styles.user}>
+                  <Link to={`/u/${data.authorID}`} className={styles.user}>
                     u/{author ? author.username : null}
-                  </a>
+                  </Link>
                 </div>
                 <a className={styles.time}>{new Date(data.dateCreated).toLocaleDateString("en-US")}</a>
               </div>

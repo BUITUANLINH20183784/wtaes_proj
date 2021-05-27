@@ -42,7 +42,8 @@
 
 .conversationItem {
   color: rgb(28 28 28);
-  background-color: rgb(237 239 241);
+  /* background-color: rgb(237 239 241); */
+  background-color: white;
   display: flex;
   cursor: pointer;
   padding: .6em .625em .5em 1em;
