@@ -38,7 +38,7 @@ const SVGs = () => (
   </span>
 );
 
-const DropMenu = ({ isAuthenticated, logout, close }) => (
+const DropMenu = ({ isAuthenticated, logout, close, user }) => (
   <div className="dropMenu">
     {!isAuthenticated ? (
       <Link to="/login" className="option">
@@ -55,7 +55,7 @@ const DropMenu = ({ isAuthenticated, logout, close }) => (
       </Link>
     ) : (
       <>
-        <Link className="option" to="/user/usaw" onClick={close}>
+        <Link className="option" to={!user ? null : `/u/${user._id}`} onClick={close}>
           <svg
             className="optionSVG"
             viewBox="0 0 20 20"
@@ -124,6 +124,7 @@ export default () => {
                 isAuthenticated={current_user.isAuthenticated}
                 logout={onDropClick(logout)}
                 close={onDropClick(() => null)}
+                user={current_user.user}
               />
             ) : (
               null

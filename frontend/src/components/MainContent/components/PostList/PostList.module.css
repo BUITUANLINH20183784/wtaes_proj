@@ -197,6 +197,16 @@
   vertical-align: baseline;
 }
 
+.communityName {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgb(28 28 28);
+  display: inline;
+  line-height: 20px;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+
 .separator {
   color: rgb(124 124 124);
   font-size: 6px;
@@ -255,6 +265,11 @@
   padding: 0 4px 0 0;
   transform: scale(1.1);
   cursor: pointer;
+}
+
+.buttonJoin:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 .contentText {

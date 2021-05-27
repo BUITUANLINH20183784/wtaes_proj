@@ -4,7 +4,7 @@ import { GlobalContext } from "../../../../context/GlobalState";
 import { Link, withRouter } from "react-router-dom";
 
 const PostList = ({ context, match }) => {
-  const { posts, communities, users } = useContext(GlobalContext);
+  const { posts, communities, users, current_user } = useContext(GlobalContext);
 
   if (!posts || !communities || !users) return null;
   
@@ -24,6 +24,8 @@ const PostList = ({ context, match }) => {
   const Post = ({ data }) => {
     const community = communities.find(community => community._id == data.communityID)
     const author = users.find(user => user._id == data.authorID)
+
+    if (!community || !author) return null
 
     return (
       <div className={styles.post}>
@@ -53,7 +55,7 @@ const PostList = ({ context, match }) => {
         <div className={styles.content}>
           <div className={styles.contentMeta}>
             <div className={styles.communityIcon}>
-              <a href="/r/something/">
+              <a>
                 <img
                   alt="Subreddit Icon"
                   role="presentation"
@@ -64,9 +66,9 @@ const PostList = ({ context, match }) => {
             <div className={styles.infor}>
               <div>
                 <div className={styles.name}>
-                  <a href="/r/something/" className={styles.community}>
+                  <Link className={styles.communityName} to={`/r/${community._id}`}>
                     r/{community ? community.name : null}
-                  </a>
+                  </Link>
                 </div>
                 <span className={styles.separator}>•</span>
                 <span className={styles.misc}>Posted by</span>
@@ -78,7 +80,7 @@ const PostList = ({ context, match }) => {
                 <a className={styles.time}>{new Date(data.dateCreated).toLocaleDateString("en-US")}</a>
               </div>
             </div>
-            <button className={styles.buttonJoin}>
+            {!current_user.user ? null : current_user.user.joinedCommunityID.find(id => id === data.communityID) ? null : <button className={styles.buttonJoin}>
               <svg viewBox="0 0 20 20" version="1.1">
                 <g stroke="none">
                   <g
@@ -90,7 +92,7 @@ const PostList = ({ context, match }) => {
                 </g>
               </svg>
               <span>Join</span>
-            </button>
+            </button>}
           </div>
           <div className={styles.contentTitle}>
             <div>

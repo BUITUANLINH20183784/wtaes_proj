@@ -95,6 +95,7 @@ const Submit = () => {
 
   const [submitted, setSubmitted] = useState(false)
   
+  if (!current_user.isAuthenticated) return <Redirect to="/login"/>
   if (!current_user || !communities) return null;
 
   const onSubmit = () => {

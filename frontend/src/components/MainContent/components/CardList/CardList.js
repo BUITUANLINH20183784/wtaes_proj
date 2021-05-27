@@ -5,15 +5,16 @@ import { Link, withRouter } from "react-router-dom";
 import { GlobalContext } from "../../../../context/GlobalState";
 
 const CardList = ({ context, match }) => {
-  const { communities, current_user, posts } = useContext(GlobalContext);
+  const { communities, current_user, posts, users } = useContext(GlobalContext);
   const post = !posts ? null : posts.find(post => post._id === match.params.id)
+  const user = !users ? null : users.find(user => user._id === match.params.id)
 
   return (
     <div className={styles.list}>
       {context === "home" ? (
         <TrendingCard communities={communities} user={current_user.user} />
       ) : context === "user" ? (
-        <UserCard />
+        <UserCard user={user} />
       ) : context === "community" ? (
         <CommunityCard community={!communities ? null : communities.find(community => community._id === match.params.id)} />
       ) : context === "post" ? (
@@ -84,7 +85,9 @@ const TrendingCard = ({ communities, user }) => {
   );
 };
 
-const UserCard = () => {
+const UserCard = ({ user }) => {
+  if (!user) return null
+  
   const Avatar = () => (
     <div className={styles.userAvatarLayer}>
       <div className={styles.userAvatarContainer}>
@@ -123,10 +126,10 @@ const UserCard = () => {
     <div className={styles.userCardContainer}>
       <div className={styles.userBGImage}></div>
       <Avatar />
-      <Link className={styles.userLink} to="/user/GuessIWillBeTracer/">
-        u/Okay
+      <Link className={styles.userLink} to={`/u/${user._id}`}>
+        u/{user.username}
       </Link>
-      <ThemeButton text="New Post" />
+      <ThemeButton text="New Post" dest="/submit" />
     </div>
   );
 };
