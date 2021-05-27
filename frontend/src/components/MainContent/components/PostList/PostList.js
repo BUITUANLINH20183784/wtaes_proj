@@ -3,11 +3,14 @@ import styles from "./PostList.module.css";
 import { GlobalContext } from "../../../../context/GlobalState";
 
 export default ({ context }) => {
-  const { posts, communities } = useContext(GlobalContext);
+  const { posts, communities, users } = useContext(GlobalContext);
 
   const list = posts;
 
   const Post = ({ data }) => {
+    const community = communities.find(community => community._id == data.communityID)
+    const author = users.find(user => user._id == data.authorID)
+
     return (
       <div className={styles.post}>
         <div className={styles.vote}>
@@ -48,17 +51,17 @@ export default ({ context }) => {
               <div>
                 <div className={styles.name}>
                   <a href="/r/something/" className={styles.community}>
-                    {/* r/{communities.find(community => community._id == data.communityID).name} */}
+                    r/{community ? community.name : null}
                   </a>
                 </div>
                 <span className={styles.separator}>•</span>
                 <span className={styles.misc}>Posted by</span>
                 <div className={styles.name}>
                   <a href="/user/ilovecatswastaken/" className={styles.user}>
-                    u/ilovecatswastaken
+                    u/{author ? author.username : null}
                   </a>
                 </div>
-                <a className={styles.time}>17 hours ago</a>
+                <a className={styles.time}>{new Date(data.dateCreated).toLocaleDateString("en-US")}</a>
               </div>
             </div>
             <button className={styles.buttonJoin}>
@@ -79,9 +82,7 @@ export default ({ context }) => {
             <div>
               <a href="/">
                 <div>
-                  You get to go into any fictional universe for 30 days.
-                  Anything you buy, skills acquired, etc will be transferred to
-                  the real world, with zero reprecussions. Where do you go?
+                  {data.title}
                 </div>
               </a>
             </div>
@@ -90,12 +91,7 @@ export default ({ context }) => {
             <div>
               <div>
                 <p>
-                  Abortions banned after 6 weeks with extremely rare exceptions.
-                  We're looking at lawsuits and ladies, nothing about the men
-                  here, except they can sue us for this as well; I guess telling
-                  us what to do with our bodies isn't enough! Texas is even
-                  pushing for bills that go as far as to give a woman the death
-                  penalty for an illegal abortion, but this has not passed
+                  {data.content}
                 </p>
               </div>
             </div>
@@ -104,7 +100,7 @@ export default ({ context }) => {
             <div>
               <a href="/r/NintendoSwitch/comments/nhr2pe/what_games_have_really_long_gameplay_value/">
                 <i></i>
-                <span>4.4k comments</span>
+                <span>{data.commentID.length} comments</span>
               </a>
             </div>
           </div>
@@ -115,8 +111,7 @@ export default ({ context }) => {
 
   return (
     <div className={styles.container}>
-      {console.log(communities)}
-      {list.map(post => <Post key={post.id} data={post}/>)}
+      {list.map(post => <Post key={post._id} data={post}/>)}
     </div>
   );
 };

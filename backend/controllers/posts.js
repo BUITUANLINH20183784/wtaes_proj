@@ -35,7 +35,8 @@ exports.addPost = async (req, res, next) => {
 			voteCount: 0
 		});
 		const community = await Community.findById(communityID);
-		communityID.postID.push(post.id);
+		if (!communityID) return res.status(400).json({ msg: "Community not found" })
+		community.postID.push(post.id);
 		await community.save();
     const user = await User.findById(req.user.id)
     user.createdPostID.push(post.id);
@@ -43,6 +44,8 @@ exports.addPost = async (req, res, next) => {
 		return res.status(201).json({
 			success: true,
 			data: post,
+			community,
+			user,
 		});
 	} catch (error) {
 		console.log(error);
@@ -94,6 +97,7 @@ exports.votePost = async (req, res, next) => {
     await post.save();
 		return res.status(200).json({
 			success: true,
+			post,
 		});
 	} catch (error) {
 		console.log(error);

@@ -5,6 +5,13 @@
   src: url("https://www.redditstatic.com/desktop2x/fonts/redesignIcon/redesignFont.7691aa8e3c12c3fee84c0d62fd4d193d.woff") format('woff');
 }
 
+@font-face {
+  font-family: "redesignFont2020";
+  font-style: italic;
+  font-weight: 400;
+  src: url("https://www.redditstatic.com/desktop2x/fonts/redesignIcon2020/redesignFont2020.2d0bfc590daecea282de4bb80762bc83.woff") format('woff');
+}
+
 body {
   margin: 0;
   font-family: IBMPlexSans, 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./CardList.module.css";
 import { Link } from "react-router-dom";
 
+import { GlobalContext } from "../../../../context/GlobalState";
+
 export default ({ context }) => {
+  const { communities } = useContext(GlobalContext);
+
   return (
     <div className={styles.list}>
       {context === "home" ? (
-        <TrendingCard />
+        <TrendingCard communities={communities}/>
       ) : context === "user" ? (
         <UserCard />
       ) : context === "community" ? (
@@ -18,17 +22,17 @@ export default ({ context }) => {
   );
 };
 
-const TrendingCard = () => {
+const TrendingCard = ({ communities }) => {
   const CommunityList = () => (
     <div className={styles.communityListContainer}>
-      <Community />
+      {communities.map(community => (<Community key={community._id} community={community} />))}
     </div>
   );
 
-  const Community = () => (
+  const Community = ({ community }) => (
     <div className={styles.commmunityContainer}>
       <CommunityIcon />
-      <CommunityInfor />
+      <CommunityInfor community={community} />
       <JoinButton />
     </div>
   );
@@ -36,22 +40,22 @@ const TrendingCard = () => {
   const CommunityIcon = () => {
     return (
       <div className={styles.communityIconContainer}>
-        <img
+        <i
           className={styles.communityIcon}
-          src="https://styles.redditmedia.com/t5_2qoeg/styles/communityIcon_gkoq20osipi31.png"
-        ></img>
+          // src="https://styles.redditmedia.com/t5_2qoeg/styles/communityIcon_gkoq20osipi31.png"
+        ></i>
       </div>
     );
   };
 
-  const CommunityInfor = () => {
+  const CommunityInfor = ({ community }) => {
     return (
       <div className={styles.communityInforContainer}>
-        <a title="r/flyfishing" href="/r/flyfishing/">
-          r/flyfishing
+        <a href="/r/flyfishing/">
+          r/{community.name}
         </a>
         <div>
-          <p>108,857 members</p>
+          <p>{community.memberCount} members</p>
         </div>
       </div>
     );

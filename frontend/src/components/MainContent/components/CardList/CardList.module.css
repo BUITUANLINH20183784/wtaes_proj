@@ -61,6 +61,16 @@
   height: 32px;
   width: 32px;
   border-radius: 100%;
+  color: #0079d3;
+  display: inline-block;
+  font-size: 32px;
+  line-height: 32px;
+  vertical-align: middle;
+  font-family: redesignFont2020;
+}
+
+.communityIcon::before {
+  content: "\f161";
 }
 
 .communityInforContainer {

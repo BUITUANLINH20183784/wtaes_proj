@@ -161,6 +161,19 @@
   position: relative;
 }
 
+.plusIcon {
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.plusIcon::before {
+  font-family: redesignFont2020;
+  content: "\f103";
+}
+
 .option:hover {
   background-color: rgb(0 121 211);
   color: rgb(255 255 255);

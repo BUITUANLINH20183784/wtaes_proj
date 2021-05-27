@@ -1,5 +1,6 @@
 const Comment = require("../models/Comment");
 const User = require("../models/User");
+const Post = require("../models/Post");
 
 // @desc		Get All Comments
 // @route		GET /api/comments
@@ -32,12 +33,17 @@ exports.addComment = async (req, res, next) => {
 			postID,
 			voteCount: 0
 		});
+    const post = await Post.findById(postID)
+    post.commentID.push(comment.id);
+    await post.save();
     const user = await User.findById(req.user.id)
     user.createdCommentID.push(comment.id);
     await user.save();
 		return res.status(201).json({
 			success: true,
 			data: comment,
+			post,
+			user,
 		});
 	} catch (error) {
 		console.log(error);
@@ -89,6 +95,7 @@ exports.voteComment = async (req, res, next) => {
     await comment.save();
 		return res.status(200).json({
 			success: true,
+			comment,
 		});
 	} catch (error) {
 		console.log(error);
