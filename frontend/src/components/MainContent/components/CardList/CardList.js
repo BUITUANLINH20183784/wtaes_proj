@@ -60,7 +60,7 @@ const TrendingCard = ({ communities, user }) => {
   const CommunityInfor = ({ community }) => {
     return (
       <div className={styles.communityInforContainer}>
-        <a href="/r/flyfishing/">r/{community.name}</a>
+        <a><Link to={`/r/${community._id}`}>r/{community.name}</Link></a>
         <div>
           <p>{community.memberCount} members</p>
         </div>
@@ -132,15 +132,16 @@ const UserCard = () => {
 };
 
 const CommunityCard = ({ community }) => {
+  if (!community) return null
+
   const Infor = () => (
     <div className={styles.communityListContainer}>
       <div className={styles.communityMain}>
-        <img
-          className={styles.communityMainIcon}
-          src="https://styles.redditmedia.com/t5_2s5or/styles/communityIcon_zh7j5dqogdp21.png?width=256&s=4d90a0f5874e08839124126de46125c57762c242"
-        ></img>
+        <i
+          className={styles.communityMainI}
+        ></i>
         <div className={styles.communityName}>
-          <Link className={styles.communityLink}>
+          <Link className={styles.communityLink} to={`/r/${community._id}`}>
             <span>r/{!community ? null : community.name}</span>
           </Link>
         </div>
@@ -176,7 +177,7 @@ const CommunityCard = ({ community }) => {
         </svg>
         Created {!community ? null : new Date(community.dateCreated).toLocaleDateString("en-US")}
       </div>
-      <ThemeButton text="Create Post" />
+      <ThemeButton text="Create Post" dest={`/submit`}/>
     </div>
   );
 
@@ -188,9 +189,9 @@ const CommunityCard = ({ community }) => {
   );
 };
 
-const ThemeButton = ({ text }) => (
+const ThemeButton = ({ text, dest }) => (
   <div className={styles.themeButtonContainer}>
-    <Link className={styles.themeButton}>{text}</Link>
+    <Link className={styles.themeButton} to={dest}>{text}</Link>
   </div>
 );
 

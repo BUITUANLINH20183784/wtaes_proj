@@ -1,12 +1,25 @@
 import React, { useContext } from "react";
 import styles from "./PostList.module.css";
 import { GlobalContext } from "../../../../context/GlobalState";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-export default ({ context }) => {
+const PostList = ({ context, match }) => {
   const { posts, communities, users } = useContext(GlobalContext);
 
-  const list = posts;
+  if (!posts || !communities || !users) return null;
+  
+  var list = posts;
+  switch (context) {
+    case "community":
+      list = posts.filter(post => post.communityID === match.params.id)
+      break;
+    case "user":
+      list = posts.filter(post => post.authorID === match.params.id)
+      break;
+    default:
+      list = posts;
+      break;
+  }
 
   const Post = ({ data }) => {
     const community = communities.find(community => community._id == data.communityID)
@@ -116,3 +129,5 @@ export default ({ context }) => {
     </div>
   );
 };
+
+export default withRouter(PostList)

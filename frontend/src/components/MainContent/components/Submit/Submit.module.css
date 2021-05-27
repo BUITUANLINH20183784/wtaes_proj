@@ -35,6 +35,22 @@
   vertical-align: middle;
 }
 
+.chooseCommunityI {
+  color: #0079d3;
+  display: inline-block;
+  font-size: 32px;
+  line-height: 32px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-right: 8px;
+}
+
+.chooseCommunityI::before {
+  font-family: redesignFont2020;
+  content: "\f161";
+}
+
 .chooseCommunityInput {
   flex: 1;
   padding-left: 8px;
