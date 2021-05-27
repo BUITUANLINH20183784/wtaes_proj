@@ -10,7 +10,7 @@ export default ({ context }) => {
   return (
     <div className={styles.list}>
       {context === "home" ? (
-        <TrendingCard communities={communities} user={current_user} />
+        <TrendingCard communities={communities} user={current_user.user} />
       ) : context === "user" ? (
         <UserCard />
       ) : context === "community" ? (
@@ -35,11 +35,8 @@ const TrendingCard = ({ communities, user }) => {
     <div className={styles.commmunityContainer}>
       <CommunityIcon />
       <CommunityInfor community={community} />
-      {console.log(user)}
-      {console.log(community)}
-      {console.log(user.joinedCommunityID ? user.joinedCommunityID.find(community._id) : null)}
       {user.joinedCommunityID ? (
-        user.joinedCommunityID.find(community._id) ? null : (
+        user.joinedCommunityID.find(id => id == community._id) ? null : (
           <JoinButton />
         )
       ) : null}
