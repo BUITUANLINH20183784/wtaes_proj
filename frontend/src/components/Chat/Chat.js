@@ -5,14 +5,14 @@ import { GlobalContext } from "../../context/GlobalState";
 
 const Chat = ({ match }) => {
   const { users, current_user, sendMessage } = useContext(GlobalContext);
-  const [index, setIndex] = useState(null);
+  // const [index, setIndex] = useState(null);
   const peer = users.find(user => user._id === match.params.id);
-  useEffect(() => {
-    if (peer) setIndex(match.params.id);
-    return () => {
-      setIndex(null)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (peer) setIndex(match.params.id);
+  //   return () => {
+  //     setIndex(null)
+  //   }
+  // }, [])
 
   if (!users) return null;
   if (!current_user.isAuthenticated) return <Redirect to="/login" />;
@@ -101,7 +101,7 @@ const ConversationList = ({ conversations, users, index, setIndex }) => {
             <h4>
               {users.find((user) => user._id === conversation.userID).username}
             </h4>
-            <div>{conversation.message[0].content}</div>
+            <div>{conversation.message[conversation.message.length - 1].content}</div>
           </div>
         </Link>
       ))}
