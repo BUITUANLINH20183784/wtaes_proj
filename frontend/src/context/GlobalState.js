@@ -237,6 +237,24 @@ export const GlobalProvider = ({ children }) => {
       });
     }
   };
+  const sendMessage = async (message) => {
+    try {
+      const res = await axios.post("/api/messages", message, tokenConfig());
+      dispatch({
+        type: "UPDATE_USER",
+        payload: res.data.receiver,
+      })
+      dispatch({
+        type: "USER_UPDATED",
+        payload: res.data.sender,
+      })
+    } catch (error) {
+      dispatch({
+        type: "USER_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  }
 
   return (
     <GlobalContext.Provider
@@ -255,6 +273,7 @@ export const GlobalProvider = ({ children }) => {
         getComments,
         addComment,
         getUsers,
+        sendMessage,
         loadUser,
         register,
         logout,

@@ -49,7 +49,7 @@ function App() {
                 <Route path="/create">
                   <CreateCommunity />
                 </Route>
-                <Route path="/chat">
+                <Route path="/c/:id">
                   <Chat />
                 </Route>
                 <Route path="/">

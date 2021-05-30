@@ -130,7 +130,7 @@ const UserCard = ({ user, current_user }) => {
         u/{user.username}
       </Link>
       {!current_user ? null : user._id === current_user._id ? <ThemeButton text="New Post" dest="/submit" /> :
-      <ThemeButton text="Chat" dest="/chat" />}
+      <ThemeButton text="Chat" dest={`/c/${user._id}`} />}
     </div>
   );
 };

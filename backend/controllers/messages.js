@@ -31,6 +31,8 @@ exports.addMessage = async (req, res, next) => {
     await receiver.save();
 		return res.status(201).json({
 			success: true,
+      sender,
+      receiver,
 		});
 	} catch (error) {
 		console.log(error);

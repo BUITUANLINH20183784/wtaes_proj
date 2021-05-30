@@ -59,7 +59,7 @@ const DropMenu = ({ isAuthenticated, logout, close, user }) => (
           <i className="profileIcon optionSVG"></i>
           <div className="optionText">Profile</div>
         </Link>
-        <Link className="option" to="/chat" onClick={close}>
+        <Link className="option" to="/c/0" onClick={close}>
           <i className="messageIcon optionSVG"></i>
           <div className="optionText">Messages</div>
         </Link>

@@ -1,11 +1,19 @@
-import React, { useContext, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import styles from "./Chat.module.css";
 import { GlobalContext } from "../../context/GlobalState";
 
-const Chat = () => {
+const Chat = ({ match }) => {
   const { users, current_user, sendMessage } = useContext(GlobalContext);
   const [index, setIndex] = useState(null);
+  const peer = users.find(user => user._id === match.params.id);
+  useEffect(() => {
+    if (peer) setIndex(match.params.id);
+    return () => {
+      setIndex(null)
+    }
+  }, [])
+
   if (!users) return null;
   if (!current_user.isAuthenticated) return <Redirect to="/login" />;
 
@@ -14,8 +22,9 @@ const Chat = () => {
       <div className={styles.conversationContainer}>
         <div className={styles.conversationHeader}>Chat</div>
         <ConversationList
-          index={index}
-          setIndex={setIndex}
+          // index={index}
+          index={peer ? match.params.id : null}
+          // setIndex={setIndex}
           users={users}
           conversations={
             !current_user.user ? null : current_user.user.conversation
@@ -29,25 +38,50 @@ const Chat = () => {
           </span>
         </nav>
         <MessageRegion
+          current_user={current_user.user}
           users={users}
           conversation={current_user.user.conversation.find(
-            (conversation) => conversation.userID === index
+            (conversation) => conversation.userID === match.params.id
           )}
         />
         <div className={styles.paddingSeparator}></div>
-        <MessageInput sendMessage={!index ? null : sendMessage} />
+        <MessageInput sendMessage={!peer ? null : (message) => {
+          sendMessage({
+            recipientID: match.params.id,
+            content: message,
+          })
+        }} />
       </div>
     </div>
   );
 };
 
-export default Chat;
+export default withRouter(Chat);
 
 const ConversationList = ({ conversations, users, index, setIndex }) => {
   // const [counter, setCounter] = useState(-1)
 
   return (
     <div className={styles.conversationListContainer}>
+      {index && !conversations.find(conversation => conversation.userID === index) ? 
+        <Link
+          className={styles.conversationItem}
+          key={index}
+          style={{ background: "rgb(237 239 241" }}
+          // onClick={setIndex(index)}
+          to={`/c/${index}`}
+        >
+          <span className={styles.userAvatar}>
+            <i />
+          </span>
+          <div className={styles.userPeak}>
+            <h4>
+              {users.find((user) => user._id === index).username}
+            </h4>
+            <div></div>
+          </div>
+        </Link> : null
+      }
       {conversations.map((conversation) => (
         <Link
           className={styles.conversationItem}
@@ -57,7 +91,8 @@ const ConversationList = ({ conversations, users, index, setIndex }) => {
               ? { background: "rgb(237 239 241" }
               : null
           }
-          onClick={setIndex(conversation.userID)}
+          // onClick={setIndex(conversation.userID)}
+          to={`/c/${conversation.userID}`}
         >
           <span className={styles.userAvatar}>
             <i />
@@ -74,7 +109,7 @@ const ConversationList = ({ conversations, users, index, setIndex }) => {
   );
 };
 
-const MessageRegion = ({ conversation, users }) => {
+const MessageRegion = ({ conversation, users, current_user }) => {
 
   const EmptyMessageRegion = () => {
     return (
@@ -89,26 +124,26 @@ const MessageRegion = ({ conversation, users }) => {
   if (!conversation) return <EmptyMessageRegion />
   const peer = users.find((user) => user._id === conversation.userID);
 
-  const UserMeta = () => (
-    <Link className={styles.userMeta}>
+  const UserMeta = ({ user, time }) => (
+    <Link className={styles.userMeta} to={`/u/${user._id}`}>
       <img
         className={styles.messageUserAvatar}
         src="https://www.redditstatic.com/avatars/avatar_default_08_545452.png"
       ></img>
-      <span className={styles.messageUserName}>Okay</span>
+      <span className={styles.messageUserName}>{user.username}</span>
       <time
         className={styles.messageTime}
-        datetime="2021-05-25T11:24:34.603Z"
-        title="5/25/2021, 6:24:34 PM"
+        // datetime="2021-05-25T11:24:34.603Z"
+        // title="5/25/2021, 6:24:34 PM"
       >
-        06:24 PM
+        {new Date(time).toLocaleDateString("en-US")}
       </time>
     </Link>
   );
 
-  const Message = () => (
+  const Message = ({ message }) => (
     <div className={styles.messageContainer}>
-      <div className={styles.message}>Hospknfasknpaf</div>
+      <div className={styles.message}>{message}</div>
     </div>
   );
 
@@ -118,8 +153,8 @@ const MessageRegion = ({ conversation, users }) => {
         {
           conversation.message.map(message =>
             <>
-              <UserMeta />
-              <Message />
+              <UserMeta user={message.dest === "to" ? current_user : message.dest === "from" ? peer : null} time={message.dateCreated} />
+              <Message message={message.content} />
             </>
           )
         }
@@ -136,8 +171,8 @@ const MessageInput = ({ sendMessage }) => {
       <div className={styles.messageTextContainer}>
         <textarea
           rows="1"
-          autocorrect="off"
-          autocomplete="off"
+          autoCorrect="off"
+          autoComplete="off"
           placeholder="Message"
           className={styles.messageTextInput}
           value={message}
