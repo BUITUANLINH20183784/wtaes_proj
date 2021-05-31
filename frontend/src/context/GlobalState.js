@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 import axios from "axios";
+import config from '../config/config'
 
 // Initial state
 const initialState = {
@@ -26,7 +27,7 @@ export const GlobalProvider = ({ children }) => {
   // Posts
   const getPosts = async () => {
     try {
-      const res = await axios.get("/api/posts");
+      const res = await axios.get(`${config.SERVER_URL}api/posts`);
       dispatch({
         type: "GET_POSTS",
         payload: res.data.data,
@@ -41,7 +42,7 @@ export const GlobalProvider = ({ children }) => {
 
   const addPost = async (post) => {
     try {
-      const res = await axios.post("/api/posts", post, tokenConfig());
+      const res = await axios.post(`${config.SERVER_URL}api/posts`, post, tokenConfig());
       dispatch({
         type: "ADD_POST",
         payload: res.data.data,
@@ -64,7 +65,7 @@ export const GlobalProvider = ({ children }) => {
 
   const deletePost = async (id) => {
     try {
-      await axios.delete(`/api/posts/${id}`);
+      await axios.delete(`${config.SERVER_URL}api/posts/${id}`);
       dispatch({
         type: "DELETE_POST",
         payload: id,
@@ -92,7 +93,7 @@ export const GlobalProvider = ({ children }) => {
   }
 
   const loadUser = () => {
-    axios.get("api/auth/user", tokenConfig())
+    axios.get(`${config.SERVER_URL}api/auth/user`, tokenConfig())
       .then(res => dispatch({
         type: "USER_LOADED",
         payload: res.data
@@ -111,7 +112,7 @@ export const GlobalProvider = ({ children }) => {
       },
     };
     const body = JSON.stringify({ username, password });
-    axios.post("api/users", body, config)
+    axios.post(`${config.SERVER_URL}api/users`, body, config)
       .then(res => dispatch({
         type: "REGISTER_SUCCESS",
         payload: res.data
@@ -130,13 +131,13 @@ export const GlobalProvider = ({ children }) => {
   }
 
   const login = ({ username, password }) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
     const body = JSON.stringify({ username, password });
-    axios.post("api/auth", body, config)
+    axios.post(`${config.SERVER_URL}api/auth`, body, tokenConfig())
       .then(res => dispatch({
         type: "LOGIN_SUCCESS",
         payload: res.data
@@ -151,7 +152,7 @@ export const GlobalProvider = ({ children }) => {
   // Communities
   const getCommunities = async () => {
     try {
-      const res = await axios.get("/api/communities");
+      const res = await axios.get(`${config.SERVER_URL}api/communities`);
       dispatch({
         type: "GET_COMMUNITIES",
         payload: res.data.data,
@@ -166,7 +167,7 @@ export const GlobalProvider = ({ children }) => {
 
   const addCommunity = async (community) => {
     try {
-      const res = await axios.post("/api/communities", community, tokenConfig());
+      const res = await axios.post(`${config.SERVER_URL}api/communities`, community, tokenConfig());
       dispatch({
         type: "ADD_COMMUNITY",
         payload: res.data.data,
@@ -185,7 +186,7 @@ export const GlobalProvider = ({ children }) => {
 
   const updateMember = async membership => {
     try {
-      const res = await axios.post("api/communities/member", membership, tokenConfig());
+      const res = await axios.post(`${config.SERVER_URL}api/communities/member`, membership, tokenConfig());
       dispatch({
         type: "UPDATE_COMMUNITY",
         payload: res.data.community,
@@ -205,7 +206,7 @@ export const GlobalProvider = ({ children }) => {
   // Comments
   const getComments = async () => {
     try {
-      const res = await axios.get("/api/comments");
+      const res = await axios.get(`${config.SERVER_URL}api/comments`);
       dispatch({
         type: "GET_COMMENTS",
         payload: res.data.data,
@@ -220,7 +221,7 @@ export const GlobalProvider = ({ children }) => {
 
   const addComment = async (comment) => {
     try {
-      const res = await axios.post("/api/comments", comment, tokenConfig());
+      const res = await axios.post(`${config.SERVER_URL}api/comments`, comment, tokenConfig());
       dispatch({
         type: "ADD_COMMENT",
         payload: res.data.data,
@@ -244,7 +245,7 @@ export const GlobalProvider = ({ children }) => {
   // Users
   const getUsers = async () => {
     try {
-      const res = await axios.get("/api/users");
+      const res = await axios.get(`${config.SERVER_URL}api/users`);
       dispatch({
         type: "GET_USERS",
         payload: res.data.data,
@@ -258,7 +259,7 @@ export const GlobalProvider = ({ children }) => {
   };
   const sendMessage = async (message) => {
     try {
-      const res = await axios.post("/api/messages", message, tokenConfig());
+      const res = await axios.post(`${config.SERVER_URL}api/messages`, message, tokenConfig());
       dispatch({
         type: "UPDATE_USER",
         payload: res.data.receiver,
