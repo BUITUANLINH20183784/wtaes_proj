@@ -143,6 +143,7 @@ const UserCard = ({ user, current_user }) => {
 };
 
 const CommunityCard = ({ community }) => {
+  const { current_user, updateMember } = useContext(GlobalContext)
   if (!community) return null
 
   const Infor = () => (
@@ -188,6 +189,20 @@ const CommunityCard = ({ community }) => {
         </svg>
         Created {!community ? null : new Date(community.dateCreated).toLocaleDateString("en-US")}
       </div>
+      {!current_user.user ? null : current_user.user.joinedCommunityID.find(id => id === community._id) ? 
+        <ThemeButton text="Leave" onClick={() => {
+          updateMember({
+            status: "leave",
+            communityID: community._id
+          })
+        }}/> :
+        <ThemeButton text="Join" onClick={() => {
+          updateMember({
+            status: "join",
+            communityID: community._id
+          })
+        }}/>
+      }
       <ThemeButton text="Create Post" dest={`/submit`}/>
     </div>
   );
@@ -200,9 +215,9 @@ const CommunityCard = ({ community }) => {
   );
 };
 
-const ThemeButton = ({ text, dest }) => (
+const ThemeButton = ({ text, dest, onClick }) => (
   <div className={styles.themeButtonContainer}>
-    <Link className={styles.themeButton} to={dest}>{text}</Link>
+    <Link className={styles.themeButton} to={dest} onClick={onClick}>{text}</Link>
   </div>
 );
 
