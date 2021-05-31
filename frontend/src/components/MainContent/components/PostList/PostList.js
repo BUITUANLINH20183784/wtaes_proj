@@ -4,7 +4,7 @@ import { GlobalContext } from "../../../../context/GlobalState";
 import { Link, withRouter } from "react-router-dom";
 
 const PostList = ({ context, match }) => {
-  const { posts, communities, users, current_user } = useContext(GlobalContext);
+  const { posts, communities, users, current_user, updateMember } = useContext(GlobalContext);
 
   if (!posts || !communities || !users) return null;
   
@@ -80,7 +80,12 @@ const PostList = ({ context, match }) => {
                 <a className={styles.time}>{new Date(data.dateCreated).toLocaleDateString("en-US")}</a>
               </div>
             </div>
-            {!current_user.user ? null : current_user.user.joinedCommunityID.find(id => id === data.communityID) ? null : <button className={styles.buttonJoin}>
+            {current_user.user?.joinedCommunityID.find(id => id === data.communityID) || !current_user.user ? null : <button className={styles.buttonJoin} onClick={() => {
+              updateMember({
+                status: "join",
+                communityID: data.communityID
+              })
+            }}>
               <svg viewBox="0 0 20 20" version="1.1">
                 <g stroke="none">
                   <g

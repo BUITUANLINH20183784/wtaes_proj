@@ -183,6 +183,25 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const updateMember = async membership => {
+    try {
+      const res = await axios.post("api/communities/member", membership, tokenConfig());
+      dispatch({
+        type: "UPDATE_COMMUNITY",
+        payload: res.data.community,
+      })
+      dispatch({
+        type: "USER_UPDATED",
+        payload: res.data.user,
+      })
+    } catch (error) {
+      dispatch({
+        type: "COMMUNITY_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  } 
+
   // Comments
   const getComments = async () => {
     try {
@@ -270,6 +289,7 @@ export const GlobalProvider = ({ children }) => {
         // deletePost,
         getCommunities,
         addCommunity,
+        updateMember,
         getComments,
         addComment,
         getUsers,

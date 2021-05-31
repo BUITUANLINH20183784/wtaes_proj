@@ -27,6 +27,8 @@ const CardList = ({ context, match }) => {
 export default withRouter(CardList)
 
 const TrendingCard = ({ communities, user }) => {
+  const { updateMember } = useContext(GlobalContext)
+
   const CommunityList = () => (
     <div className={styles.communityListContainer}>
       {communities.map((community) => (
@@ -40,9 +42,9 @@ const TrendingCard = ({ communities, user }) => {
       <CommunityIcon />
       <CommunityInfor community={community} />
       {user ? user.joinedCommunityID ? (
-        user.joinedCommunityID.find(id => id == community._id) ? <JoinButton state={false}/> : (
-          <JoinButton state={true}/>
-        )
+        user.joinedCommunityID.find(id => id == community._id) ? 
+        <JoinButton joined={true} community={community}/> :
+        <JoinButton joined={false} community={community}/> 
       ) : null : null}
     </div>
   );
@@ -69,10 +71,15 @@ const TrendingCard = ({ communities, user }) => {
     );
   };
 
-  const JoinButton = ({ state }) => {
+  const JoinButton = ({ joined, community }) => {
     return (
       <div className={styles.joinButtonContainer}>
-        <button className={styles.joinButton}>{state ? "Join" : "Leave"}</button>
+        <button className={styles.joinButton} onClick={() => {
+          updateMember({
+            status: joined ? "leave" : "join",
+            communityID: community._id
+          });
+        }}>{joined ? "Leave" : "Join"}</button>
       </div>
     );
   };

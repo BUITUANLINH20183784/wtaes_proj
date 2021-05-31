@@ -24,6 +24,8 @@ const Post = ({ match }) => {
 export default withRouter(Post)
 
 const MainPost = ({ post, community, author, user }) => {
+  const { updateMember } = useContext(GlobalContext)
+
   const VoteRegion = () => (
     <div className={styles.vote}>
       <div className={styles.voteGroup}>
@@ -69,7 +71,12 @@ const MainPost = ({ post, community, author, user }) => {
           <a className={styles.time}>{post ? new Date(post.dateCreated).toLocaleDateString("en-US") : null}</a>
         </div>
       </div>
-      {!user ? null : !user.joinedCommunityID ? null : !user.joinedCommunityID.find(id => id === community._id) ? null : <button className={styles.buttonJoin}>
+      {!user || user?.joinedCommunityID.find(id => id === community._id) ? null : <button className={styles.buttonJoin} onClick={() => {
+        updateMember({
+          status: "join",
+          communityID: community._id
+        })
+      }}>
         <svg viewBox="0 0 20 20" version="1.1">
           <g stroke="none">
             <g
@@ -151,9 +158,9 @@ const UserComment = ({ user, addComment, post }) => {
 }
 
 const CommentList = ({ comments, users }) => {
-  const commentList = !comments ? null : comments.map(comment => ({
+  const commentList = comments?.map(comment => ({
     comment,
-    author: !users ? null : users.find(user => user._id === comment.authorID)
+    author: users?.find(user => user._id === comment?.authorID)
   }))
 
   const CommentAvatar = () => (

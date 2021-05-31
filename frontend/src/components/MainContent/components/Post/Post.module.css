@@ -221,6 +221,11 @@
   cursor: pointer;
 }
 
+.buttonJoin:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 /* Title */
 .contentTitle {
   margin: 0 8px;
