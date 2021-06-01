@@ -57,6 +57,18 @@
   font-size: 16px;
 }
 
+.buttonSpan:hover {
+  background-color: #1a1a1b1a;
+}
+
+.buttonSpan:hover .iconUpvote {
+  color: #cc3700;
+}
+
+.buttonSpan:hover .iconDownvote {
+  color: #5a75cc;
+}
+
 .iconUpvote {
   position: relative;
   cursor: pointer;
@@ -554,10 +566,23 @@
   color: rgb(135 138 140);
   cursor: pointer;
   padding: initial;
+  border-radius: 2px;
   width: 24px;
   height: 24px;
   line-height: 24px;
   font-size: 16px;
+}
+
+.buttonUpvote:hover, .buttonDownvote:hover {
+  background-color: #1a1a1b1a;
+}
+
+.buttonUpvote:hover i {
+  color: #cc3700;
+}
+
+.buttonDownvote:hover i {
+  color: #5a75cc;
 }
 
 .buttonUpvote i::before {

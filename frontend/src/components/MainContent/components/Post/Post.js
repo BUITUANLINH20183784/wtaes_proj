@@ -24,20 +24,50 @@ const Post = ({ match }) => {
 export default withRouter(Post)
 
 const MainPost = ({ post, community, author, user }) => {
-  const { updateMember } = useContext(GlobalContext)
+  const { updateMember, votePost } = useContext(GlobalContext)
+  const current_vote = user ? post?.vote.find(vote => vote.userID === user._id) : null;
+  if (!community || !author) return null;
 
   const VoteRegion = () => (
     <div className={styles.vote}>
       <div className={styles.voteGroup}>
-        <button className={styles.voteButton}>
+        <button className={styles.voteButton}
+          onClick={() => {
+            if (current_vote?.status === "up") {
+              votePost({
+                status: "neutral",
+                postID: post._id
+              })
+            } else if (user) {
+              votePost({
+                status: "up",
+                postID: post._id
+              })
+            }
+          }}
+        >
           <span className={styles.buttonSpan}>
-            <i className={styles.iconUpvote}></i>
+            <i className={styles.iconUpvote} style={!user ? null : post.vote.find(vote => vote.userID === user._id && vote.status === "up") ? {color: "#cc3700"} : null}></i>
           </span>
         </button>
         <div className={styles.voteCount}>{post ? post.voteCount : 0}</div>
-        <button className={styles.voteButton}>
+        <button className={styles.voteButton}
+          onClick={() => {
+            if (current_vote?.status === "down") {
+              votePost({
+                status: "neutral",
+                postID: post._id
+              })
+            } else if (user) {
+              votePost({
+                status: "down",
+                postID: post._id
+              })
+            }
+          }}
+        >
           <span className={styles.buttonSpan}>
-            <i className={styles.iconDownvote}></i>
+            <i className={styles.iconDownvote} style={!user ? null : post.vote.find(vote => vote.userID === user._id && vote.status === "down") ? {color: "#5a75cc"} : null}></i>
           </span>
         </button>
       </div>
@@ -57,16 +87,16 @@ const MainPost = ({ post, community, author, user }) => {
       <div className={styles.infor}>
         <div>
           <div className={styles.name}>
-            <a href="/r/something/" className={styles.community}>
+            <Link to={`/r/${community._id}`} className={styles.community}>
               r/{community ? community.name : null}
-            </a>
+            </Link>
           </div>
           <span className={styles.separator}>•</span>
           <span className={styles.misc}>Posted by</span>
           <div className={styles.name}>
-            <a href="/user/ilovecatswastaken/" className={styles.user}>
+            <Link to={`/u/${author._id}`} className={styles.user}>
               u/{author ? author.username : null}
-            </a>
+            </Link>
           </div>
           <a className={styles.time}>{post ? new Date(post.dateCreated).toLocaleDateString("en-US") : null}</a>
         </div>
@@ -158,6 +188,7 @@ const UserComment = ({ user, addComment, post }) => {
 }
 
 const CommentList = ({ comments, users }) => {
+  const { voteComment, current_user } = useContext(GlobalContext)
   const commentList = comments?.map(comment => ({
     comment,
     author: users?.find(user => user._id === comment?.authorID)
@@ -169,24 +200,60 @@ const CommentList = ({ comments, users }) => {
     </Link>
   )
 
-  const CommentDetail = ({ data }) => (
-    <div className={styles.commentDetailContainer}>
-      <div className={styles.commentMeta}>
-        <Link className={styles.commentAuthorLink} to={`/u/${!data.author ? null : data.author._id}`}>{!data.author ? null : data.author.username}</Link>
-        <Link className={styles.commentMetaTime}>{!data.comment ? null : new Date(data.comment.dateCreated).toLocaleDateString("en-US")}</Link>
-      </div>
-      <div className={styles.commentContent}>
-        <p>{!data.comment ? null : data.comment.content}</p>
-      </div>
-      <div className={styles.commentAction}>
-        <div className={styles.commentVoteRegion}>
-          <button className={styles.buttonUpvote}><i/></button>
-          <div className={styles.commentVoteCount}>{!data.comment ? null : data.comment.voteCount}</div>
-          <button className={styles.buttonDownvote}><i/></button>
+  const CommentDetail = ({ data }) => {
+    const current_vote = current_user.user ? data.comment?.vote.find(vote => vote.userID === current_user.user._id) : null;
+
+    return (
+      <div className={styles.commentDetailContainer}>
+        <div className={styles.commentMeta}>
+          <Link className={styles.commentAuthorLink} to={`/u/${!data.author ? null : data.author._id}`}>{!data.author ? null : data.author.username}</Link>
+          <Link className={styles.commentMetaTime}>{!data.comment ? null : new Date(data.comment.dateCreated).toLocaleDateString("en-US")}</Link>
+        </div>
+        <div className={styles.commentContent}>
+          <p>{!data.comment ? null : data.comment.content}</p>
+        </div>
+        <div className={styles.commentAction}>
+          <div className={styles.commentVoteRegion}>
+            <button className={styles.buttonUpvote}
+              onClick={() => {
+                if (current_vote?.status === "up") {
+                  voteComment({
+                    status: "neutral",
+                    commentID: data.comment._id
+                  })
+                } else if (current_user.user) {
+                  voteComment({
+                    status: "up",
+                    commentID: data.comment._id
+                  })
+                }
+              }}
+            >
+              <i style={!current_user.user ? null : data.comment?.vote.find(vote => vote.userID === current_user.user._id && vote.status === "up") ? {color: "#cc3700"} : null}/>
+            </button>
+            <div className={styles.commentVoteCount}>{data.comment?.voteCount}</div>
+            <button className={styles.buttonDownvote}
+              onClick={() => {
+                if (current_vote?.status === "down") {
+                  voteComment({
+                    status: "neutral",
+                    commentID: data.comment._id
+                  })
+                } else if (current_user.user) {
+                  voteComment({
+                    status: "down",
+                    commentID: data.comment._id
+                  })
+                }
+              }}
+            >
+              <i style={!current_user.user ? null : data.comment?.vote.find(vote => vote.userID === current_user.user._id && vote.status === "down") ? {color: "#5a75cc"} : null}/>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   return (
     <div className={styles.commentListContainer}>
