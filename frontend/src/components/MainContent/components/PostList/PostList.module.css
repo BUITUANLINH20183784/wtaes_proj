@@ -70,6 +70,18 @@
   font-size: 16px;
 }
 
+.buttonSpan:hover {
+  background-color: #1a1a1b1a;
+}
+
+.buttonSpan:hover .iconUpvote {
+  color: #cc3700;
+}
+
+.buttonSpan:hover .iconDownvote {
+  color: #5a75cc;
+}
+
 .iconUpvote {
   position: relative;
   cursor: pointer;

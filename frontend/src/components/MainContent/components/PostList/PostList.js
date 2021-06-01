@@ -4,7 +4,7 @@ import { GlobalContext } from "../../../../context/GlobalState";
 import { Link, withRouter } from "react-router-dom";
 
 const PostList = ({ context, match }) => {
-  const { posts, communities, users, current_user, updateMember } = useContext(GlobalContext);
+  const { posts, communities, users, current_user, updateMember, votePost } = useContext(GlobalContext);
 
   if (!posts || !communities || !users) return null;
   
@@ -23,31 +23,62 @@ const PostList = ({ context, match }) => {
 
   const Post = ({ data }) => {
     const community = communities.find(community => community._id == data.communityID)
-    const author = users.find(user => user._id == data.authorID)
+    const author = users.find(user => user._id == data.authorID);
+    const current_vote = current_user.user ? data.vote.find(vote => vote.userID === current_user.user._id) : null;
 
     if (!community || !author) return null
 
     return (
       <div className={styles.post}>
         <div className={styles.vote}>
-          <div className={styles.voteGroup} id="vote-arrows">
+          <div className={styles.voteGroup}>
             <button
-              aria-label="upvote"
-              aria-pressed="false"
               className={styles.voteButton}
+              onClick={() => {
+                // if (current_user.user) {
+                  
+                //   if (data.vote.find(vote => vote.userID === current_user.user._id && vote.status !== "up")) {
+                //     votePost({
+                //       status: "up"
+                //     })
+                //   }
+                // }
+                if (current_vote?.status === "up") {
+                  votePost({
+                    status: "neutral",
+                    postID: data._id
+                  })
+                } else if (current_user.user) {
+                  votePost({
+                    status: "up",
+                    postID: data._id
+                  })
+                }
+              }}
             >
               <span className={styles.buttonSpan}>
-                <i className={styles.iconUpvote}></i>
+                <i className={styles.iconUpvote} style={!current_user.user ? null : data.vote.find(vote => vote.userID === current_user.user._id && vote.status === "up") ? {color: "#cc3700"} : null}></i>
               </span>
             </button>
             <div className={styles.voteCount}>{data.voteCount}</div>
             <button
-              aria-label="downvote"
-              aria-pressed="false"
               className={styles.voteButton}
+              onClick={() => {
+                if (current_vote?.status === "down") {
+                  votePost({
+                    status: "neutral",
+                    postID: data._id
+                  })
+                } else if (current_user.user) {
+                  votePost({
+                    status: "down",
+                    postID: data._id
+                  })
+                }
+              }}
             >
               <span className={styles.buttonSpan}>
-                <i className={styles.iconDownvote}></i>
+                <i className={styles.iconDownvote} style={!current_user.user ? null : data.vote.find(vote => vote.userID === current_user.user._id && vote.status === "down") ? {color: "#5a75cc"} : null}></i>
               </span>
             </button>
           </div>
@@ -58,7 +89,6 @@ const PostList = ({ context, match }) => {
               <a>
                 <img
                   alt="Subreddit Icon"
-                  role="presentation"
                   src="https://b.thumbs.redditmedia.com/XIv6AipVy7QRJeVzevFxYwhCwD-0GxmkismT3tTyAZI.png"
                 />
               </a>

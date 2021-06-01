@@ -63,6 +63,21 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const votePost = async vote => {
+    try {
+      const res = await axios.post(`${config.SERVER_URL}api/posts/vote`, vote, tokenConfig());
+      dispatch({
+        type: "UPDATE_POST",
+        payload: res.data.post
+      })
+    } catch (error) {
+      dispatch({
+        type: "POST_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  }
+
   const deletePost = async (id) => {
     try {
       await axios.delete(`${config.SERVER_URL}api/posts/${id}`);
@@ -242,6 +257,21 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const voteComment = async vote => {
+    try {
+      const res = await axios.post(`${config.SERVER_URL}api/comments/vote`, vote, tokenConfig());
+      dispatch({
+        type: "UPDATE_COMMENT",
+        payload: res.data.comment
+      })
+    } catch (error) {
+      dispatch({
+        type: "COMMENT_ERROR",
+        payload: error.response.data.error,
+      });
+    }
+  }
+
   // Users
   const getUsers = async () => {
     try {
@@ -287,12 +317,14 @@ export const GlobalProvider = ({ children }) => {
         current_user: state.current_user,
         getPosts,
         addPost,
+        votePost,
         // deletePost,
         getCommunities,
         addCommunity,
         updateMember,
         getComments,
         addComment,
+        voteComment,
         getUsers,
         sendMessage,
         loadUser,
