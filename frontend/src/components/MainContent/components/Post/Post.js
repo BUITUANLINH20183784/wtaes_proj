@@ -149,7 +149,7 @@ const MainPost = ({ post, community, author, user }) => {
             </div>
             <div className={styles.contentAction}>
               <div>
-                <a href="/r/NintendoSwitch/comments/nhr2pe/what_games_have_really_long_gameplay_value/">
+                <a>
                   <i></i>
                   <span>{!post ? null : !post.commentID ? null : post.commentID.length} comments</span>
                 </a>

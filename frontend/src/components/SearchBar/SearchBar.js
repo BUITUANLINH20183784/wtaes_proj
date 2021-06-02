@@ -68,7 +68,7 @@ const SuggestionItem = ({ user, community, close }) => {
     <Link className="suggestion" to={`/r/${community._id}`} onMouseDown={e => e.preventDefault()} onClick={close}>
       <i className="suggestionIcon" />
       <div className="suggestionDetail">
-        <div className="title">{community.name}</div>
+        <div className="title">r/{community.name}</div>
         <div>
           <div className="members">{community.memberCount} members</div>
         </div>
@@ -79,7 +79,7 @@ const SuggestionItem = ({ user, community, close }) => {
     <Link className="suggestion" to={`/u/${user._id}`} onMouseDown={e => e.preventDefault()} onClick={close}>
       <i className="suggestionIcon userIcon" />
       <div className="suggestionDetail">
-        <div className="title">{user.username}</div>
+        <div className="title">u/{user.username}</div>
         {/* <div>
           <div className="members">{" "}</div>
         </div> */}

@@ -15,7 +15,7 @@ const CardList = ({ context, match }) => {
         <TrendingCard communities={communities} user={current_user.user} />
       ) : context === "user" ? (
         <UserCard user={user} current_user={current_user.user} />
-      ) : context === "community" ? (
+      ) : context === "community" || context === "submit" ? (
         <CommunityCard community={!communities ? null : communities.find(community => community._id === match.params.id)} />
       ) : context === "post" ? (
         <CommunityCard community={!communities ? null : !post ? null : communities.find(community => community._id === post.communityID)} />
@@ -136,7 +136,7 @@ const UserCard = ({ user, current_user }) => {
       <Link className={styles.userLink} to={`/u/${user._id}`}>
         u/{user.username}
       </Link>
-      {!current_user ? null : user._id === current_user._id ? <ThemeButton text="New Post" dest="/submit" /> :
+      {!current_user ? null : user._id === current_user._id ? <ThemeButton text="New Post" dest="/s/0" /> :
       <ThemeButton text="Chat" dest={`/c/${user._id}`} />}
     </div>
   );
@@ -203,7 +203,7 @@ const CommunityCard = ({ community }) => {
           })
         }}/>
       }
-      <ThemeButton text="Create Post" dest={`/submit`}/>
+      <ThemeButton text="Create Post" dest={`/s/${community._id}`}/>
     </div>
   );
 

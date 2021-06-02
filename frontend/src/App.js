@@ -43,7 +43,7 @@ function App() {
                 <Route path="/p/:id">
                   <MainContent context="post" />
                 </Route>
-                <Route path="/submit">
+                <Route path="/s/:id">
                   <MainContent context="submit" />
                 </Route>
                 <Route path="/create">

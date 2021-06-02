@@ -149,7 +149,7 @@ const PostList = ({ context, match }) => {
           </div>
           <div className={styles.contentAction}>
             <div>
-              <a href="/r/NintendoSwitch/comments/nhr2pe/what_games_have_really_long_gameplay_value/">
+              <a>
                 <i></i>
                 <span>{data.commentID.length} comments</span>
               </a>

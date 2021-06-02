@@ -67,7 +67,7 @@ const DropMenu = ({ isAuthenticated, logout, close, user }) => (
           <i className="plusIcon optionSVG"></i>
           <div className="optionText">Create Community</div>
         </Link>
-        <Link className="option" to="/submit" onClick={close}>
+        <Link className="option" to="/s/0" onClick={close}>
           <i className="plusIcon optionSVG"></i>
           <div className="optionText">Create Post</div>
         </Link>
