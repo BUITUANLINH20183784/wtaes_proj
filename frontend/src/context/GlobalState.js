@@ -119,7 +119,7 @@ export const GlobalProvider = ({ children }) => {
           type: "USER_LOADED",
           payload: res.data
         })
-        console.log(`res.data`, res.data)
+        // console.log(`res.data`, res.data)
         // console.log(`tokenConfig()`, tokenConfig())
       })
       .catch(error => {

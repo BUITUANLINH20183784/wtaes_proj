@@ -8,7 +8,9 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-app.use(require("cors")())
+app.use(require("./middleware/injection"));
+
+app.use(require("cors")());
 
 app.use("/api/posts", require('./routes/posts'));
 app.use("/api/users", require('./routes/users'));

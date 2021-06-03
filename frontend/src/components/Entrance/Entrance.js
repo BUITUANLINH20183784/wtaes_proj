@@ -43,21 +43,18 @@ export default (props) => {
         <form className={styles.animatedForm}>
           <fieldset>
             <input
-              id="loginUsername"
               type="text"
-              name="username"
-              required=""
+              required
               placeholder="Username"
+              spellCheck="false"
               value={username}
               onChange={onChangeU}
             />
           </fieldset>
           <fieldset>
             <input
-              id="loginPassword"
-              type="text"
-              name="password"
-              required=""
+              type="password"
+              required
               placeholder="Password"
               value={password}
               onChange={onChangeP}
