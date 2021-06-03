@@ -110,6 +110,7 @@ const PostList = ({ context, match }) => {
                 <a className={styles.time}>{new Date(data.dateCreated).toLocaleDateString("en-US")}</a>
               </div>
             </div>
+            {/* {console.log(`current_user.user`, current_user.user)} */}
             {current_user.user?.joinedCommunityID.find(id => id === data.communityID) || !current_user.user ? null : <button className={styles.buttonJoin} onClick={() => {
               updateMember({
                 status: "join",

@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 import axios from "axios";
+// import axios from '../utils/axios'
 import config from '../config/config'
 
 // Initial state
@@ -28,9 +29,13 @@ export const GlobalProvider = ({ children }) => {
   const getPosts = async () => {
     try {
       const res = await axios.get(`${config.SERVER_URL}api/posts`);
+      // const res = await (await fetch(`${config.SERVER_URL}api/posts`, {
+      //   method: "GET",
+      // })).json()
       dispatch({
         type: "GET_POSTS",
         payload: res.data.data,
+        // payload: res.data,
       });
     } catch (error) {
       dispatch({
@@ -109,10 +114,14 @@ export const GlobalProvider = ({ children }) => {
 
   const loadUser = () => {
     axios.get(`${config.SERVER_URL}api/auth/user`, tokenConfig())
-      .then(res => dispatch({
-        type: "USER_LOADED",
-        payload: res.data
-      }))
+      .then(res => {
+        dispatch({
+          type: "USER_LOADED",
+          payload: res.data
+        })
+        // console.log(`res.data`, res.data)
+        // console.log(`tokenConfig()`, tokenConfig())
+      })
       .catch(error => {
         dispatch({
           type: "AUTH_ERROR",
@@ -120,13 +129,13 @@ export const GlobalProvider = ({ children }) => {
       })
   }
 
-  const register = ({ username, password }) => {
+  const register = (body) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    const body = JSON.stringify({ username, password });
+    // const body = JSON.stringify({ username, password });
     axios.post(`${config.SERVER_URL}api/users`, body, config)
       .then(res => dispatch({
         type: "REGISTER_SUCCESS",
@@ -145,13 +154,13 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
-  const login = ({ username, password }) => {
+  const login = (body) => {
     // const config = {
     //   headers: {
     //     "Content-Type": "application/json",
     //   },
     // };
-    const body = JSON.stringify({ username, password });
+    // const body = JSON.stringify({ username, password });
     axios.post(`${config.SERVER_URL}api/auth`, body, tokenConfig())
       .then(res => dispatch({
         type: "LOGIN_SUCCESS",
@@ -168,6 +177,7 @@ export const GlobalProvider = ({ children }) => {
   const getCommunities = async () => {
     try {
       const res = await axios.get(`${config.SERVER_URL}api/communities`);
+      // console.log(`res`, res)
       dispatch({
         type: "GET_COMMUNITIES",
         payload: res.data.data,
