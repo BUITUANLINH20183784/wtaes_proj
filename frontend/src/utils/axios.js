@@ -4,8 +4,10 @@ export default {
       const res = await fetch(url, {
         headers: config.headers
       })
-      return {
-        data: await res.json()
+      if (res.ok) {
+        return {
+          data: await res.json()
+        }
       }
     } catch (error) {
       throw {
@@ -24,8 +26,10 @@ export default {
         headers: config.headers,
         body: JSON.stringify(body),
       })
-      return await {
-        data: res.json()
+      if (res.ok) {
+        return {
+          data: await res.json()
+        }
       }
     } catch (error) {
       throw {
@@ -43,8 +47,10 @@ export default {
         method: "DELETE",
         headers: config.headers,
       })
-      return await {
-        data: res.json()
+      if (res.ok) {
+        return {
+          data: await res.json()
+        }
       }
     } catch (error) {
       throw {

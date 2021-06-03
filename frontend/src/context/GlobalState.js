@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
-import axios from "axios";
-// import axios from '../utils/axios'
+// import axios from "axios"
+import axios from '../utils/axios'
 import config from '../config/config'
 
 // Initial state
@@ -119,7 +119,7 @@ export const GlobalProvider = ({ children }) => {
           type: "USER_LOADED",
           payload: res.data
         })
-        // console.log(`res.data`, res.data)
+        console.log(`res.data`, res.data)
         // console.log(`tokenConfig()`, tokenConfig())
       })
       .catch(error => {
@@ -162,10 +162,13 @@ export const GlobalProvider = ({ children }) => {
     // };
     // const body = JSON.stringify({ username, password });
     axios.post(`${config.SERVER_URL}api/auth`, body, tokenConfig())
-      .then(res => dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: res.data
-      }))
+      .then(res => {
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: res.data
+        })
+        console.log(`res.data`, res.data)
+      })
       .catch(error => {
         dispatch({
           type: "LOGIN_FAIL",
