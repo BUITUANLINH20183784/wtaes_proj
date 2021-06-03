@@ -8,7 +8,8 @@ const PostList = ({ context, match }) => {
 
   if (!posts || !communities || !users) return null;
   
-  var list = posts;
+  // var list = posts;
+  var list = posts.sort((p, q) => Date.parse(q.dateCreated) - Date.parse(p.dateCreated));
   switch (context) {
     case "community":
       list = posts.filter(post => post.communityID === match.params.id)
@@ -17,7 +18,11 @@ const PostList = ({ context, match }) => {
       list = posts.filter(post => post.authorID === match.params.id)
       break;
     default:
-      list = posts;
+      // if (!current_user.user) list = posts.sort((p, q) => Date.parse(q.dateCreated) - Date.parse(p.dateCreated));
+      if (current_user.user) {
+        const calc = post => current_user.user.joinedCommunityID.find(id => id === post.communityID) ? 1 : 0;
+        list = list.sort((p, q) => calc(q) - calc(p))
+      }
       break;
   }
 

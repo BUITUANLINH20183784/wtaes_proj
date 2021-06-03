@@ -167,7 +167,7 @@ export const GlobalProvider = ({ children }) => {
           type: "LOGIN_SUCCESS",
           payload: res.data
         })
-        console.log(`res.data`, res.data)
+        // console.log(`res.data`, res.data)
       })
       .catch(error => {
         dispatch({

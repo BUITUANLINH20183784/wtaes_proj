@@ -14,6 +14,10 @@
   position: relative;
 }
 
+.post:hover {
+  border: 1px solid rgb(137 137 137);
+}
+
 @media (min-width: 640px) {
   .post {
     border-radius: 4px;
