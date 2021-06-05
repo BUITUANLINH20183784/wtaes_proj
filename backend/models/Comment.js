@@ -1,41 +1,46 @@
 const mongoose = require("mongoose");
+const General = require("./General");
 
-const CommentSchema = new mongoose.Schema({
-  content: {
-    type: String,
-    required: true,
-  },
-  authorID: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "User",
-  },
-  dateCreated: {
-    type: Date,
-    default: Date.now(),
-  },
-  postID: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "Post",
-  },
-  vote: [
-    {
-      status: {
+class Comment extends General {
+  constructor() {
+    super();
+    this.fields = {
+      ...this.fields,
+      content: {
         type: String,
         required: true,
       },
-      userID: {
+      authorID: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "User",
+      },
+      postID: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "Post",
+      },
+      vote: [
+        {
+          status: {
+            type: String,
+            required: true,
+          },
+          userID: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "User",
+          }
+        }
+      ],
+      voteCount: {
+        type: Number,
+        required: true,
       }
     }
-  ],
-  voteCount: {
-    type: Number,
-    required: true,
   }
-});
+}
+
+const CommentSchema = new mongoose.Schema(new Comment().fields);
 
 module.exports = mongoose.model("Comment", CommentSchema);
