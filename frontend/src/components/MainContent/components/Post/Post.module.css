@@ -132,14 +132,31 @@
   vertical-align: baseline;
 }
 
-.communityIcon > a > img {
+.communityIcon > a > i {
+  background-color: white;
+  color: #0079d3;
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  border-radius: 100%;
+  vertical-align: middle;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: redesignFont2020;
+}
+
+.communityIcon > a > i::before {
+  content: "\f161";
+}
+
+/* .communityIcon > a > img {
   background-color: #0079d3;
   width: 20px;
   height: 20px;
   margin-right: 4px;
   border-radius: 100%;
   vertical-align: middle;
-}
+} */
 
 .infor {
   align-items: center;

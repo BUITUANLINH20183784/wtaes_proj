@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalState";
 import "./SearchBar.css";
+import avatar from '../../utils/avatar'
 
 export default () => {
   const [dropdown, setDropdown] = useState(false);
@@ -77,7 +78,7 @@ const SuggestionItem = ({ user, community, close }) => {
   );
   if (user) return (
     <Link className="suggestion" to={`/u/${user._id}`} onMouseDown={e => e.preventDefault()} onClick={close}>
-      <i className="suggestionIcon userIcon" />
+      <i className="suggestionIcon userIcon" style={{content: `url(${avatar(user._id)})`}}/>
       <div className="suggestionDetail">
         <div className="title">u/{user.username}</div>
         {/* <div>

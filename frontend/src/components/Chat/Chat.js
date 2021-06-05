@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import styles from "./Chat.module.css";
 import { GlobalContext } from "../../context/GlobalState";
+import avatar from '../../utils/avatar'
 
 const Chat = ({ match }) => {
   const { users, current_user, sendMessage } = useContext(GlobalContext);
@@ -72,7 +73,7 @@ const ConversationList = ({ conversations, users, index, setIndex }) => {
           to={`/c/${index}`}
         >
           <span className={styles.userAvatar}>
-            <i />
+            <i style={{backgroundImage: `url(${avatar(index)})`}} />
           </span>
           <div className={styles.userPeak}>
             <h4>
@@ -95,7 +96,7 @@ const ConversationList = ({ conversations, users, index, setIndex }) => {
           to={`/c/${conversation.userID}`}
         >
           <span className={styles.userAvatar}>
-            <i />
+            <i style={{content: `url(${avatar(conversation.userID)})`}} />
           </span>
           <div className={styles.userPeak}>
             <h4>
@@ -128,7 +129,7 @@ const MessageRegion = ({ conversation, users, current_user }) => {
     <Link className={styles.userMeta} to={`/u/${user._id}`}>
       <img
         className={styles.messageUserAvatar}
-        src="https://www.redditstatic.com/avatars/avatar_default_08_545452.png"
+        src={avatar(user._id)}
       ></img>
       <span className={styles.messageUserName}>{user.username}</span>
       <time

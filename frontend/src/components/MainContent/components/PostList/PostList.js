@@ -92,10 +92,7 @@ const PostList = ({ context, match }) => {
           <div className={styles.contentMeta}>
             <div className={styles.communityIcon}>
               <a>
-                <img
-                  alt="Subreddit Icon"
-                  src="https://b.thumbs.redditmedia.com/XIv6AipVy7QRJeVzevFxYwhCwD-0GxmkismT3tTyAZI.png"
-                />
+                <i/>
               </a>
             </div>
             <div className={styles.infor}>

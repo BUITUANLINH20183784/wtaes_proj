@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import styles from "./Post.module.css";
 import { Link, withRouter } from "react-router-dom";
 import { GlobalContext } from "../../../../context/GlobalState";
+import avatar from '../../../../utils/avatar'
 
 const Post = ({ match }) => {
   const { posts, current_user, addComment, communities, users, comments } = useContext(GlobalContext)
@@ -78,10 +79,7 @@ const MainPost = ({ post, community, author, user }) => {
     <div className={styles.contentMeta}>
       <div className={styles.communityIcon}>
         <a>
-          <img
-            alt="Subreddit Icon"
-            src="https://b.thumbs.redditmedia.com/XIv6AipVy7QRJeVzevFxYwhCwD-0GxmkismT3tTyAZI.png"
-          />
+          <i/>
         </a>
       </div>
       <div className={styles.infor}>
@@ -194,9 +192,9 @@ const CommentList = ({ comments, users }) => {
     author: users?.find(user => user._id === comment?.authorID)
   }))
 
-  const CommentAvatar = () => (
+  const CommentAvatar = ({ data }) => (
     <Link className={styles.commentAvatarLink}>
-      <img alt="User avatar" className={styles.commentAvatar} src="https://www.redditstatic.com/avatars/avatar_default_03_A06A42.png"></img>
+      <img alt="User avatar" className={styles.commentAvatar} src={avatar(data.author?._id)}></img>
     </Link>
   )
 

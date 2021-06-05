@@ -130,13 +130,13 @@ export const GlobalProvider = ({ children }) => {
   }
 
   const register = (body) => {
-    const config = {
+    const _config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
     // const body = JSON.stringify({ username, password });
-    axios.post(`${config.SERVER_URL}api/users`, body, config)
+    axios.post(`${config.SERVER_URL}api/users`, body, _config)
       .then(res => dispatch({
         type: "REGISTER_SUCCESS",
         payload: res.data
