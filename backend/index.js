@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use(require("./middleware/injection"));
+app.use(require("./middleware/xss"))
 
 app.use(require("cors")());
 
