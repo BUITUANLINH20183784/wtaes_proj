@@ -293,6 +293,7 @@
   max-width: 800px;
   margin: 12px 0 0 8px;
   padding: 5px 16px 5px 0;
+  white-space: pre-line;
 }
 
 /* Action */
@@ -546,6 +547,7 @@
 
 .commentContent > p {
   margin: 0;
+  white-space: pre-line;
 }
 
 .commentAction {

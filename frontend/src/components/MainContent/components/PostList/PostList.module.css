@@ -314,6 +314,7 @@
 .contentText > div > div p {
   padding-top: 0;
   margin: 0;
+  white-space: pre-line;
 }
 
 .contentAction {
