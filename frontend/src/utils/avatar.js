@@ -1,5 +1,21 @@
-export default id => 
-  `https://www.redditstatic.com/avatars/avatar_default_${String(parseInt(id, 16)%20+1).padStart(2, "0")}_${
+/* global BigInt */
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return Math.abs(hash);
+};
+
+export default id => {
+  // console.log(`id`, id)
+  // console.log(`parseInt(id, 16)`, parseInt(id, 16))
+  // console.log(`parseInt(id, 16)%20`, parseInt(id, 16)%20)
+  // console.log(`id.hashCode()`, id.hashCode())
+  return `https://www.redditstatic.com/avatars/avatar_default_${String(id.hashCode()%20+1).padStart(2, "0")}_${
     [
       "A5A4A4",
       "545452",
@@ -26,5 +42,6 @@ export default id =>
       "DB0064",
       "EA0027",
       "FF585B",
-    ][parseInt(id, 16)%25]
+    ][id.hashCode()%25]
   }.png`
+}
