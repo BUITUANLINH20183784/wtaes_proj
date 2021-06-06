@@ -47,7 +47,7 @@ export default () => {
           onChange={(e) => setText(e.target.value)}
         />
         {/* </form> */}
-        {true ? <Suggestions text={text} close={() => setDropdown(false)}/> : null}
+        {dropdown ? <Suggestions text={text} close={() => setDropdown(false)}/> : null}
       </div>
     </div>
   );
